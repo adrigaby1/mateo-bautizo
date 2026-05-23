@@ -20,7 +20,7 @@ export function Farewell() {
           Mateo te espera frente al mar 🌊
         </h2>
         <p className="text-foreground/65 mb-8 max-w-md mx-auto">
-          Será un día sencillo, luminoso y lleno de cariño. Gracias por formar parte.
+          Será un día luminoso, lleno de alegría y de cariño. Gracias por formar parte.
         </p>
         <div className="text-3xl mb-8 flex items-center justify-center gap-3">
           <span className="animate-twinkle inline-block">✨</span>
