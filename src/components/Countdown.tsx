@@ -22,22 +22,22 @@ export function Countdown() {
   }
 
   const items = [
-    { label: "Días", value: time.d, color: "bg-gradient-sea" },
-    { label: "Horas", value: time.h, color: "bg-gradient-gold" },
-    { label: "Min", value: time.m, color: "bg-gradient-sea" },
-    { label: "Seg", value: time.s, color: "bg-gradient-gold" },
+    { label: "Días", value: time.d },
+    { label: "Horas", value: time.h },
+    { label: "Min", value: time.m },
+    { label: "Seg", value: time.s },
   ];
 
   return (
-    <div className="grid grid-cols-4 gap-2 sm:gap-4 max-w-md mx-auto">
+    <div className="grid grid-cols-4 gap-3 sm:gap-4 max-w-sm mx-auto">
       {items.map((it) => (
         <div key={it.label} className="flex flex-col items-center">
-          <div className={`${it.color} w-full aspect-square rounded-2xl flex items-center justify-center shadow-soft`}>
-            <span className="text-2xl sm:text-4xl font-display font-bold text-white drop-shadow">
+          <div className="w-full aspect-square rounded-2xl flex items-center justify-center bg-white/70 backdrop-blur border border-gold-soft/30">
+            <span className="text-xl sm:text-3xl font-display font-semibold text-foreground/80">
               {String(it.value).padStart(2, "0")}
             </span>
           </div>
-          <span className="mt-2 text-xs sm:text-sm font-display font-semibold text-foreground/70">{it.label}</span>
+          <span className="mt-2 text-[10px] sm:text-xs font-display tracking-[0.18em] uppercase text-foreground/55">{it.label}</span>
         </div>
       ))}
     </div>

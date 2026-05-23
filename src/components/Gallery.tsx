@@ -55,20 +55,20 @@ export function Gallery() {
   };
 
   return (
-    <section className="relative py-16 px-4">
+    <section className="relative py-20 sm:py-24 px-6 sm:px-8">
       <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/70 backdrop-blur border border-gold-soft/50 text-xs font-display tracking-widest uppercase text-foreground/65 mb-3">
+        <div className="text-center mb-12 reveal-up">
+          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/60 backdrop-blur border border-gold-soft/40 text-[11px] font-display tracking-[0.22em] uppercase text-foreground/55 mb-3">
             Galería
           </div>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold text-sea-gradient mb-2">
+          <h2 className="font-display text-3xl sm:text-4xl font-semibold text-sea-muted mb-2">
             El mundo de Mateo
           </h2>
-          <p className="text-foreground/65">Pequeños momentos, grandes recuerdos ✨</p>
+          <p className="text-foreground/60">Pequeños momentos, grandes recuerdos</p>
         </div>
 
         <div
-          className="relative aspect-[4/5] sm:aspect-[4/3] rounded-3xl overflow-hidden shadow-card border-4 border-white cursor-pointer"
+          className="relative aspect-[4/5] sm:aspect-[4/3] rounded-[28px] overflow-hidden shadow-soft border border-white/80 cursor-pointer reveal-up delay-1"
           style={{ background: "linear-gradient(135deg, oklch(0.95 0.03 80), oklch(0.92 0.04 220))" }}
           onClick={() => setOpenIdx(idx)}
         >
