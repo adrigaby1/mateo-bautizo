@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { downloadMateoIcs } from "@/lib/calendar";
+
+const WHATSAPP_PHONE = "34671338704"; // sin "+", formato internacional
 
 export function Rsvp() {
   const [name, setName] = useState("");
   const [guests, setGuests] = useState(1);
   const [message, setMessage] = useState("");
+  const [alergias, setAlergias] = useState("");
   const [submitted, setSubmitted] = useState<null | boolean>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -25,6 +29,16 @@ export function Rsvp() {
       return;
     }
     setSubmitted(asistira);
+
+    if (asistira) {
+      const parts = [
+        `✨ Nueva confirmación — ${name.trim()} asistirá con ${guests} ${guests === 1 ? "persona" : "personas"}.`,
+      ];
+      if (message.trim()) parts.push(`💬 ${message.trim()}`);
+      if (alergias.trim()) parts.push(`⚠️ Alergias/intolerancias: ${alergias.trim()}`);
+      const url = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(parts.join("\n"))}`;
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
   };
 
   return (
@@ -94,6 +108,18 @@ export function Rsvp() {
                 className="w-full px-5 py-3 rounded-2xl border border-border bg-white/85 text-base focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/15 mb-5 resize-none"
               />
 
+              <label className="block font-display font-semibold mb-2 text-foreground/80 text-sm">
+                ¿Alguna alergia o intolerancia alimentaria? <span className="text-xs font-normal text-foreground/50">(opcional)</span>
+              </label>
+              <textarea
+                value={alergias}
+                onChange={(e) => setAlergias(e.target.value)}
+                placeholder="Ej: sin gluten, alergia a los frutos secos…"
+                maxLength={300}
+                rows={2}
+                className="w-full px-5 py-3 rounded-2xl border border-border bg-white/85 text-base focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/15 mb-5 resize-none"
+              />
+
               {error && (
                 <div className="mb-4 p-3 rounded-xl bg-red-100 text-red-700 text-sm text-center">
                   {error}
@@ -125,9 +151,16 @@ export function Rsvp() {
               <h3 className="font-display text-2xl font-bold text-sea-gradient mb-2">
                 ¡Gracias, {name}!
               </h3>
-              <p className="text-foreground/70">
+              <p className="text-foreground/70 mb-6">
                 Nos hace muchísima ilusión que vengas. Mateo te espera 💙
               </p>
+              <button
+                onClick={downloadMateoIcs}
+                type="button"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-gradient-sea text-white font-display font-semibold rounded-full shadow-soft hover:scale-[1.02] active:scale-95 transition-all"
+              >
+                Añadir al calendario 📅
+              </button>
             </div>
           )}
 

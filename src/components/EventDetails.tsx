@@ -1,4 +1,5 @@
 import { Countdown } from "./Countdown";
+import { downloadMateoIcs } from "@/lib/calendar";
 
 type Place = {
   icon: string;
@@ -93,6 +94,15 @@ export function EventDetails() {
             Cuenta atrás
           </h3>
           <Countdown />
+          <div className="mt-6 flex justify-center">
+            <button
+              onClick={downloadMateoIcs}
+              type="button"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white border border-gold-soft/50 text-foreground/80 font-display font-semibold text-sm rounded-full shadow-soft hover:scale-[1.02] active:scale-95 transition-all"
+            >
+              Añadir al calendario 📅
+            </button>
+          </div>
         </div>
 
         {/* Timeline */}
