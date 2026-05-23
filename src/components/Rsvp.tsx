@@ -2,7 +2,7 @@ import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { downloadMateoIcs } from "@/lib/calendar";
 
-const WHATSAPP_PHONE = "34671338704"; // sin "+", formato internacional
+const WHATSAPP_PHONE = "34645166406"; // sin "+", formato internacional
 
 export function Rsvp({ lang = "es" }: { lang?: "es" | "en" }) {
   const t = {
