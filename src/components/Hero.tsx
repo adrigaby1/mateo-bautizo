@@ -65,17 +65,12 @@ export function Hero({ onEnter, entered }: HeroProps) {
           <img
             src={mateoAvatar}
             alt="Mateo - Bautizo y 1er cumpleaños"
-            className="relative object-contain animate-soft-float rounded-full max-w-[92vw] w-auto h-auto"
+            className="relative object-contain animate-soft-float rounded-full max-w-[92vw] w-auto h-auto max-h-[min(34vh,240px)] sm:max-h-[min(32vh,260px)] lg:max-h-[min(34vh,300px)]"
             style={{
-              maxHeight: "min(34vh, 240px)",
               filter:
                 "drop-shadow(0 28px 40px rgba(45,86,113,0.18)) drop-shadow(0 6px 12px rgba(221,190,135,0.25))",
             }}
           />
-          <style>{`
-            @media (min-width: 640px) { .hero-initial img.animate-soft-float, section img.animate-soft-float { max-height: min(32vh, 260px) !important; } }
-            @media (min-width: 1024px) { .hero-initial img.animate-soft-float, section img.animate-soft-float { max-height: min(34vh, 300px) !important; } }
-          `}</style>
         </div>
 
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/60 backdrop-blur border border-gold-soft/40 text-[10px] sm:text-xs font-display tracking-[0.22em] uppercase text-foreground/60 reveal-up delay-1 shrink-0">
