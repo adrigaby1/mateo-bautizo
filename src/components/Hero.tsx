@@ -2,11 +2,16 @@ import mateoAvatar from "@/assets/mateo-avatar.png";
 
 interface HeroProps {
   onEnter: () => void;
+  entered?: boolean;
 }
 
-export function Hero({ onEnter }: HeroProps) {
+export function Hero({ onEnter, entered }: HeroProps) {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center px-6 sm:px-8 py-16 overflow-hidden">
+    <section
+      className={`relative flex flex-col items-center justify-center px-6 sm:px-8 py-16 transition-all duration-700 ease-out ${
+        entered ? "min-h-screen opacity-100" : "h-screen overflow-hidden"
+      }`}
+    >
       {/* Mediterranean glow */}
       <div className="absolute -top-32 -left-32 w-[28rem] h-[28rem] rounded-full bg-gradient-sea opacity-[0.14] blur-3xl" />
       <div className="absolute -bottom-32 -right-32 w-[32rem] h-[32rem] rounded-full bg-gradient-gold opacity-[0.22] blur-3xl" />
