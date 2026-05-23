@@ -13,8 +13,8 @@ export function Farewell() {
           src={mateoAvatar}
           alt="Mateo"
           loading="lazy"
-          className="w-32 h-32 mx-auto mb-6 object-contain animate-soft-float"
-          style={{ filter: "drop-shadow(0 18px 30px rgba(45,86,113,0.18))" }}
+          className="w-56 h-56 sm:w-64 sm:h-64 mx-auto mb-6 object-contain rounded-full animate-soft-float"
+          style={{ filter: "drop-shadow(0 22px 36px rgba(45,86,113,0.20)) drop-shadow(0 6px 12px rgba(221,190,135,0.25))" }}
         />
         <h2 className="font-display text-3xl sm:text-4xl font-semibold text-sea-muted mb-4 leading-tight">
           Mateo te espera frente al mar 🌊

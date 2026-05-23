@@ -34,20 +34,18 @@ export function Hero({ onEnter }: HeroProps) {
         <div className="mb-8 relative flex items-center justify-center reveal-up">
           {/* radial blur halo - integrates avatar with background */}
           <div
-            className="absolute w-[22rem] h-[22rem] sm:w-[28rem] sm:h-[28rem] rounded-full opacity-80 blur-3xl"
+            className="absolute w-[40rem] h-[40rem] sm:w-[52rem] sm:h-[52rem] rounded-full opacity-80 blur-3xl"
             style={{
               background:
                 "radial-gradient(circle at 50% 45%, oklch(0.95 0.04 80 / 0.85) 0%, oklch(0.92 0.035 230 / 0.55) 40%, transparent 72%)",
             }}
           />
           {/* warm dorado glow */}
-          <div className="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-gold-soft opacity-30 blur-[100px]" />
-          {/* very subtle translucent ring */}
-          <div className="absolute w-60 h-60 sm:w-72 sm:h-72 rounded-full border border-white/30 backdrop-blur-[2px]" />
+          <div className="absolute w-[36rem] h-[36rem] sm:w-[44rem] sm:h-[44rem] rounded-full bg-gold-soft opacity-30 blur-[120px]" />
           <img
             src={mateoAvatar}
             alt="Mateo - Bautizo y 1er cumpleaños"
-            className="relative w-72 h-72 sm:w-96 sm:h-96 object-contain animate-soft-float"
+            className="relative w-[36rem] h-[36rem] sm:w-[44rem] sm:h-[44rem] max-w-[92vw] max-h-[92vw] object-contain animate-soft-float rounded-full"
             style={{ filter: "drop-shadow(0 28px 40px rgba(45,86,113,0.18)) drop-shadow(0 6px 12px rgba(221,190,135,0.25))" }}
           />
         </div>
