@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Hero } from "@/components/Hero";
 import { EventDetails } from "@/components/EventDetails";
 import { Gallery } from "@/components/Gallery";
