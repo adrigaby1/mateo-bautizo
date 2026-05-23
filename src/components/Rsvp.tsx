@@ -22,6 +22,7 @@ export function Rsvp() {
       asistentes: asistira ? guests : 0,
       asistira,
       mensaje: message.trim() || null,
+      alergias: alergias.trim() || null,
     } as never);
     setLoading(false);
     if (error) {
@@ -35,7 +36,7 @@ export function Rsvp() {
         `✨ Nueva confirmación — ${name.trim()} asistirá con ${guests} ${guests === 1 ? "persona" : "personas"}.`,
       ];
       if (message.trim()) parts.push(`💬 ${message.trim()}`);
-      if (alergias.trim()) parts.push(`⚠️ Alergias/intolerancias: ${alergias.trim()}`);
+      if (alergias.trim()) parts.push(`🥜 Alergias: ${alergias.trim()}`);
       const url = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(parts.join("\n"))}`;
       window.open(url, "_blank", "noopener,noreferrer");
     }
