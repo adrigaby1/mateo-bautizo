@@ -1,8 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useRef } from "react";
-import { MemoriesHero } from "@/components/MemoriesHero";
-import { MemoriesGallery } from "@/components/MemoriesGallery";
-import { MemoriesFarewell } from "@/components/MemoriesFarewell";
+import { Hero } from "@/components/Hero";
+import { EventDetails } from "@/components/EventDetails";
+import { Gallery } from "@/components/Gallery";
+import { MiniGame } from "@/components/MiniGame";
+import { Rsvp } from "@/components/Rsvp";
+import { Farewell } from "@/components/Farewell";
 import { FloatingDecor } from "@/components/FloatingDecor";
 import { MusicPlayer, type MusicPlayerHandle } from "@/components/MusicPlayer";
 
@@ -10,15 +13,17 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "🦄 Recuerdos del cumple de Camila" },
+      { title: "✨ Bautizo y 1er cumpleaños de Mateo · 5 julio 2026" },
       {
         name: "description",
-        content: "Galería privada con fotos y vídeos del cumpleaños mágico de Camila 💖",
+        content:
+          "Invitación al bautizo y 1er cumpleaños de Mateo el 5 de julio de 2026 en Marbella. Nos haría mucha ilusión que nos acompañes.",
       },
-      { property: "og:title", content: "🦄 Recuerdos del cumple de Camila" },
+      { property: "og:title", content: "Bautizo y 1er cumpleaños de Mateo ✨" },
       {
         property: "og:description",
-        content: "Gracias por acompañar a Camila en su día mágico ✨",
+        content:
+          "Domingo 5 de julio de 2026 · Iglesia La Encarnación + Simbad Beach · Marbella",
       },
       { property: "og:type", content: "website" },
     ],
@@ -32,9 +37,15 @@ function Index() {
     <main className="relative min-h-screen bg-sky-magic overflow-x-hidden">
       <FloatingDecor />
       <div className="relative z-10">
-        <MemoriesHero onViewMemories={() => musicRef.current?.tryPlay()} />
-        <MemoriesGallery />
-        <MemoriesFarewell />
+        <Hero onEnter={() => {
+          musicRef.current?.tryPlay();
+          document.getElementById("ubicacion")?.scrollIntoView({ behavior: "smooth" });
+        }} />
+        <EventDetails />
+        <Gallery />
+        <MiniGame />
+        <Rsvp />
+        <Farewell />
       </div>
       <MusicPlayer ref={musicRef} />
     </main>

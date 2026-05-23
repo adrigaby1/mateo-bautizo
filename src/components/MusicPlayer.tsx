@@ -49,7 +49,7 @@ export const MusicPlayer = forwardRef<MusicPlayerHandle>(function MusicPlayer(_,
       >
         <span className="text-xl leading-none">{playing ? "⏸️" : "🎵"}</span>
         <span className="whitespace-nowrap">
-          {playing ? "Pausar" : "Toca para música"}
+          {playing ? "Pausar" : "Tocar música"}
         </span>
       </button>
     </>
