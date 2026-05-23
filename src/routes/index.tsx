@@ -6,6 +6,7 @@ import { Gallery } from "@/components/Gallery";
 import { MiniGame } from "@/components/MiniGame";
 import { Rsvp } from "@/components/Rsvp";
 import { Farewell } from "@/components/Farewell";
+import { EmotionalNote } from "@/components/EmotionalNote";
 import { FloatingDecor } from "@/components/FloatingDecor";
 import { MusicPlayer, type MusicPlayerHandle } from "@/components/MusicPlayer";
 
@@ -45,6 +46,7 @@ function Index() {
         <Rsvp />
         <Gallery />
         <MiniGame />
+        <EmotionalNote />
         <Farewell />
       </div>
       <MusicPlayer ref={musicRef} />
