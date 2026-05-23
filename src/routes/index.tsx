@@ -42,9 +42,9 @@ function Index() {
           document.getElementById("ubicacion")?.scrollIntoView({ behavior: "smooth" });
         }} />
         <EventDetails />
+        <Rsvp />
         <Gallery />
         <MiniGame />
-        <Rsvp />
         <Farewell />
       </div>
       <MusicPlayer ref={musicRef} />

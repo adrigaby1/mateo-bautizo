@@ -31,12 +31,17 @@ export function Hero({ onEnter }: HeroProps) {
       </svg>
 
       <div className="relative z-10 flex flex-col items-center text-center max-w-2xl animate-pop-in">
-        <div className="mb-6 relative">
-          <div className="absolute inset-0 bg-gradient-gold rounded-full blur-3xl opacity-60 scale-110" />
+        <div className="mb-6 relative flex items-center justify-center">
+          {/* warm outer glow */}
+          <div className="absolute inset-0 bg-gradient-gold rounded-full blur-[80px] opacity-50 scale-125" />
+          <div className="absolute inset-0 bg-sky-med rounded-full blur-[90px] opacity-40 scale-110" />
+          {/* soft glass backdrop */}
+          <div className="absolute w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-white/30 backdrop-blur-md border border-white/40 shadow-[0_20px_60px_-20px_rgba(45,86,113,0.25)]" />
           <img
             src={mateoAvatar}
             alt="Mateo - Bautizo y 1er cumpleaños"
-            className="relative w-72 h-72 sm:w-96 sm:h-96 object-contain drop-shadow-2xl animate-float animate-fade-in"
+            className="relative w-72 h-72 sm:w-96 sm:h-96 object-contain animate-float animate-fade-in"
+            style={{ filter: "drop-shadow(0 18px 30px rgba(45,86,113,0.22))" }}
           />
         </div>
 

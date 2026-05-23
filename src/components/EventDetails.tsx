@@ -16,7 +16,7 @@ const CHURCH: Place = {
   time: "12:00",
   name: "Iglesia La Encarnación",
   address: "Marbella",
-  mapsUrl: "https://maps.app.goo.gl/VhGVhtRCEZu43asr6?g_st=aw",
+  mapsUrl: "https://maps.app.goo.gl/ndWZefBDF88nrSvT6?g_st=aw",
   embedQuery: "Iglesia La Encarnación Marbella",
 };
 
@@ -26,7 +26,7 @@ const RESTAURANT: Place = {
   time: "14:30",
   name: "Simbad Restaurant and Beach Bar",
   address: "Marbella · frente al mar",
-  mapsUrl: "https://maps.app.goo.gl/ndWZefBDF88nrSvT6?g_st=aw",
+  mapsUrl: "https://maps.app.goo.gl/VhGVhtRCEZu43asr6?g_st=aw",
   embedQuery: "Simbad Restaurant and Beach Bar Marbella",
 };
 
