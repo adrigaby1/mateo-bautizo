@@ -9,7 +9,7 @@ interface Particle {
   size: number;
 }
 
-const EMOJIS = ["⭐", "✨", "🌟", "💖", "🦄", "🌈", "🎀"];
+const EMOJIS = ["⭐", "✨", "🌟", "🐚", "🌊", "🪸"];
 
 export function Confetti({ count = 30 }: { count?: number }) {
   const [particles, setParticles] = useState<Particle[]>([]);

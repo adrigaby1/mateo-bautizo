@@ -38,6 +38,33 @@ export type Database = {
         }
         Relationships: []
       }
+      rsvp_mateo: {
+        Row: {
+          asistentes: number
+          asistira: boolean
+          created_at: string
+          id: string
+          mensaje: string | null
+          nombre: string
+        }
+        Insert: {
+          asistentes?: number
+          asistira: boolean
+          created_at?: string
+          id?: string
+          mensaje?: string | null
+          nombre: string
+        }
+        Update: {
+          asistentes?: number
+          asistira?: boolean
+          created_at?: string
+          id?: string
+          mensaje?: string | null
+          nombre?: string
+        }
+        Relationships: []
+      }
       rsvps: {
         Row: {
           attending: boolean

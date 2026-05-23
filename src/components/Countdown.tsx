@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const EVENT_DATE = new Date("2026-04-29T17:30:00");
+const EVENT_DATE = new Date("2026-07-05T12:00:00");
 
 export function Countdown() {
   const [time, setTime] = useState(getTimeLeft());
@@ -22,10 +22,10 @@ export function Countdown() {
   }
 
   const items = [
-    { label: "Días", value: time.d, color: "bg-gradient-pink" },
-    { label: "Horas", value: time.h, color: "bg-gradient-magic" },
-    { label: "Min", value: time.m, color: "bg-rainbow" },
-    { label: "Seg", value: time.s, color: "bg-gradient-pink" },
+    { label: "Días", value: time.d, color: "bg-gradient-sea" },
+    { label: "Horas", value: time.h, color: "bg-gradient-gold" },
+    { label: "Min", value: time.m, color: "bg-gradient-sea" },
+    { label: "Seg", value: time.s, color: "bg-gradient-gold" },
   ];
 
   return (

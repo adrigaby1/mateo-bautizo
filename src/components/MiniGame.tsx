@@ -1,145 +1,116 @@
-import { useEffect, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 
-interface Target {
-  id: number;
-  x: number;
-  y: number;
-  emoji: string;
-  size: number;
-}
-
-const EMOJIS = ["🦄", "⭐", "🌈", "✨", "💖"];
-const GAME_DURATION = 30;
+const STARS = [
+  { x: 12, y: 20, msg: "Mateo llegó para llenar nuestra vida de luz ✨" },
+  { x: 78, y: 15, msg: "Su sonrisa es como el mar en calma 🌊" },
+  { x: 30, y: 55, msg: "Hoy bautizamos a Mateo con todo nuestro amor 💙" },
+  { x: 65, y: 65, msg: "1 año lleno de pequeñas grandes alegrías 🌟" },
+  { x: 18, y: 78, msg: "Gracias por celebrar este día con nosotros 🐚" },
+  { x: 85, y: 80, msg: "El mejor regalo es tenerte aquí 💛" },
+];
 
 export function MiniGame() {
-  const [playing, setPlaying] = useState(false);
-  const [score, setScore] = useState(0);
-  const [time, setTime] = useState(GAME_DURATION);
-  const [targets, setTargets] = useState<Target[]>([]);
-  const [finished, setFinished] = useState(false);
-  const areaRef = useRef<HTMLDivElement>(null);
-  const idRef = useRef(0);
+  const [discovered, setDiscovered] = useState<Set<number>>(new Set());
+  const [active, setActive] = useState<number | null>(null);
 
-  useEffect(() => {
-    if (!playing) return;
-    const timer = setInterval(() => {
-      setTime((t) => {
-        if (t <= 1) {
-          setPlaying(false);
-          setFinished(true);
-          return 0;
-        }
-        return t - 1;
-      });
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [playing]);
+  const bubbles = useMemo(
+    () =>
+      Array.from({ length: 12 }).map((_, i) => ({
+        id: i,
+        left: Math.random() * 100,
+        size: 14 + Math.random() * 26,
+        duration: 8 + Math.random() * 10,
+        delay: Math.random() * 8,
+      })),
+    []
+  );
 
-  useEffect(() => {
-    if (!playing) return;
-    const spawner = setInterval(() => {
-      setTargets((cur) => {
-        if (cur.length >= 5) return cur;
-        const newTarget: Target = {
-          id: idRef.current++,
-          x: 5 + Math.random() * 85,
-          y: 5 + Math.random() * 80,
-          emoji: EMOJIS[Math.floor(Math.random() * EMOJIS.length)],
-          size: 40 + Math.random() * 30,
-        };
-        return [...cur, newTarget];
-      });
-    }, 700);
-    return () => clearInterval(spawner);
-  }, [playing]);
-
-  // auto-remove targets after a while
-  useEffect(() => {
-    if (!playing || targets.length === 0) return;
-    const t = setTimeout(() => {
-      setTargets((cur) => cur.slice(1));
-    }, 1800);
-    return () => clearTimeout(t);
-  }, [targets, playing]);
-
-  const start = () => {
-    setScore(0);
-    setTime(GAME_DURATION);
-    setTargets([]);
-    setFinished(false);
-    setPlaying(true);
-  };
-
-  const hit = (id: number) => {
-    setScore((s) => s + 1);
-    setTargets((cur) => cur.filter((t) => t.id !== id));
+  const reveal = (i: number) => {
+    setActive(i);
+    setDiscovered((prev) => new Set(prev).add(i));
   };
 
   return (
     <section className="relative py-16 px-4">
       <div className="max-w-2xl mx-auto">
-        <h2 className="text-center font-display text-4xl sm:text-5xl font-bold text-rainbow mb-3">
-          🎮 ¡Atrapa los unicornios!
-        </h2>
-        <p className="text-center text-foreground/70 mb-8">Toca todas las estrellitas y unicornios mágicos ✨</p>
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/70 backdrop-blur border border-gold-soft/50 text-xs font-display tracking-widest uppercase text-foreground/65 mb-3">
+            Pequeña experiencia
+          </div>
+          <h2 className="font-display text-3xl sm:text-4xl font-bold text-sea-gradient mb-2">
+            Toca las estrellas del mar
+          </h2>
+          <p className="text-foreground/65 text-sm sm:text-base">
+            Descubre mensajitos escondidos entre las olas
+          </p>
+        </div>
 
-        <div className="bg-card backdrop-blur-md rounded-3xl shadow-card p-4 sm:p-6 border-2 border-white/60">
-          <div className="flex justify-between items-center mb-4 gap-3">
-            <div className="bg-gradient-pink rounded-2xl px-4 py-2 text-white font-display font-bold shadow-soft">
-              ⭐ {score}
-            </div>
-            <div className="bg-gradient-magic rounded-2xl px-4 py-2 text-white font-display font-bold shadow-soft">
-              ⏱ {time}s
-            </div>
+        <div className="bg-card backdrop-blur-md rounded-3xl shadow-card p-4 sm:p-5 border border-white/70">
+          <div
+            className="relative rounded-2xl overflow-hidden border-2 border-white shadow-soft"
+            style={{
+              height: "380px",
+              background:
+                "linear-gradient(180deg, oklch(0.95 0.03 230) 0%, oklch(0.85 0.07 220) 60%, oklch(0.72 0.10 220) 100%)",
+            }}
+          >
+            {/* Floating bubbles */}
+            {bubbles.map((b) => (
+              <span
+                key={b.id}
+                className="absolute bottom-0 rounded-full bg-white/40 backdrop-blur-sm pointer-events-none animate-bubble"
+                style={{
+                  left: `${b.left}%`,
+                  width: `${b.size}px`,
+                  height: `${b.size}px`,
+                  animationDuration: `${b.duration}s`,
+                  animationDelay: `${b.delay}s`,
+                  animationIterationCount: "infinite",
+                }}
+              />
+            ))}
+
+            {/* Stars to discover */}
+            {STARS.map((s, i) => {
+              const found = discovered.has(i);
+              return (
+                <button
+                  key={i}
+                  onClick={() => reveal(i)}
+                  className={`absolute -translate-x-1/2 -translate-y-1/2 transition-all ${
+                    found ? "opacity-70 scale-90" : "animate-twinkle"
+                  }`}
+                  style={{
+                    left: `${s.x}%`,
+                    top: `${s.y}%`,
+                    fontSize: "34px",
+                    filter: "drop-shadow(0 2px 8px rgba(255,255,255,0.6))",
+                  }}
+                  aria-label={`Descubrir mensaje ${i + 1}`}
+                >
+                  {found ? "🌟" : "⭐"}
+                </button>
+              );
+            })}
+
+            {/* Message popup */}
+            {active !== null && (
+              <button
+                onClick={() => setActive(null)}
+                className="absolute inset-x-4 bottom-4 mx-auto max-w-md rounded-2xl bg-white/95 backdrop-blur p-4 shadow-glow text-center animate-pop-in"
+              >
+                <p className="font-display text-base sm:text-lg text-foreground/85 leading-snug">
+                  {STARS[active].msg}
+                </p>
+                <span className="block mt-2 text-[11px] uppercase tracking-widest text-foreground/45">
+                  toca para cerrar
+                </span>
+              </button>
+            )}
           </div>
 
-          <div
-            ref={areaRef}
-            className="relative bg-rainbow rounded-2xl overflow-hidden border-4 border-white shadow-soft"
-            style={{ height: "400px" }}
-          >
-            {!playing && !finished && (
-              <div className="absolute inset-0 flex items-center justify-center bg-white/80 backdrop-blur">
-                <button
-                  onClick={start}
-                  className="px-8 py-4 bg-gradient-magic text-white text-xl font-display font-bold rounded-full shadow-glow hover:scale-110 active:scale-95 transition-all animate-wiggle"
-                >
-                  🎮 ¡Empezar a jugar!
-                </button>
-              </div>
-            )}
-
-            {finished && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/90 backdrop-blur p-6 text-center animate-pop-in">
-                <div className="text-6xl mb-3">🏆</div>
-                <h3 className="font-display text-2xl sm:text-3xl font-bold text-rainbow mb-2">
-                  ¡Eres un súper invitado del cumple de Camila!
-                </h3>
-                <p className="text-lg text-foreground/70 mb-4">Conseguiste <b>{score}</b> puntos ⭐</p>
-                <button
-                  onClick={start}
-                  className="px-6 py-3 bg-gradient-pink text-white font-display font-bold rounded-full shadow-soft hover:scale-105 transition"
-                >
-                  🔁 Jugar otra vez
-                </button>
-              </div>
-            )}
-
-            {playing &&
-              targets.map((t) => (
-                <button
-                  key={t.id}
-                  onClick={() => hit(t.id)}
-                  className="absolute animate-pop-in active:scale-50 transition-transform select-none"
-                  style={{
-                    left: `${t.x}%`,
-                    top: `${t.y}%`,
-                    fontSize: `${t.size}px`,
-                  }}
-                >
-                  {t.emoji}
-                </button>
-              ))}
+          <div className="mt-4 text-center text-sm font-display text-foreground/65">
+            ⭐ {discovered.size} / {STARS.length} mensajes descubiertos
           </div>
         </div>
       </div>

@@ -3,61 +3,95 @@ import { supabase } from "@/integrations/supabase/client";
 
 export function Rsvp() {
   const [name, setName] = useState("");
+  const [guests, setGuests] = useState(1);
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState<null | boolean>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const submit = async (attending: boolean) => {
+  const submit = async (asistira: boolean) => {
     if (!name.trim()) return;
     setLoading(true);
     setError(null);
-    const { error } = await supabase.from("rsvps").insert({
-      name: name.trim(),
-      attending,
-      message: message.trim() || null,
-    });
+    const { error } = await supabase.from("rsvp_mateo" as never).insert({
+      nombre: name.trim(),
+      asistentes: asistira ? guests : 0,
+      asistira,
+      mensaje: message.trim() || null,
+    } as never);
     setLoading(false);
     if (error) {
-      setError("¡Ups! No pudimos guardar tu confirmación. Intenta de nuevo.");
+      setError("No hemos podido guardar tu respuesta. Inténtalo de nuevo, por favor.");
       return;
     }
-    setSubmitted(attending);
+    setSubmitted(asistira);
   };
 
   return (
     <section id="rsvp" className="relative py-16 px-4 scroll-mt-6">
       <div className="max-w-xl mx-auto">
-        <h2 className="text-center font-display text-4xl sm:text-5xl font-bold text-rainbow mb-3">
-          💌 ¿Vendrás al cumple?
-        </h2>
-        <p className="text-center text-foreground/70 mb-8">Confirma tu asistencia mágica</p>
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/70 backdrop-blur border border-gold-soft/50 text-xs font-display tracking-widest uppercase text-foreground/65 mb-3">
+            Confirmación
+          </div>
+          <h2 className="font-display text-3xl sm:text-4xl font-bold text-sea-gradient mb-2">
+            ¿Nos acompañarás?
+          </h2>
+          <p className="text-foreground/65 text-sm sm:text-base">
+            Nos haría mucha ilusión celebrarlo contigo
+          </p>
+        </div>
 
-        <div className="bg-card backdrop-blur-md rounded-3xl shadow-card p-6 sm:p-8 border-2 border-white/60">
+        <div className="bg-card backdrop-blur-md rounded-3xl shadow-card p-6 sm:p-8 border border-white/70">
           {submitted === null && (
             <>
-              <label className="block font-display font-bold mb-2 text-foreground/80">
-                Nombre del niño/a 🧒
+              <label className="block font-display font-semibold mb-2 text-foreground/80 text-sm">
+                Tu nombre
               </label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Escribe tu nombre aquí..."
+                placeholder="Escribe tu nombre completo"
                 maxLength={100}
-                className="w-full px-5 py-4 rounded-2xl border-2 border-border bg-white/80 text-lg font-medium focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 mb-4"
+                className="w-full px-5 py-3.5 rounded-2xl border border-border bg-white/85 text-base focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/15 mb-4"
               />
 
-              <label className="block font-display font-bold mb-2 text-foreground/80">
-                Mensaje para Camila 💖 <span className="text-xs font-normal text-foreground/50">(opcional)</span>
+              <label className="block font-display font-semibold mb-2 text-foreground/80 text-sm">
+                Nº de asistentes
+              </label>
+              <div className="flex items-center gap-3 mb-4">
+                <button
+                  type="button"
+                  onClick={() => setGuests((g) => Math.max(1, g - 1))}
+                  className="w-12 h-12 rounded-full bg-white border border-border font-display font-bold text-xl shadow-soft active:scale-95 transition"
+                  aria-label="Quitar asistente"
+                >
+                  −
+                </button>
+                <div className="flex-1 text-center font-display text-2xl font-bold bg-sand/40 rounded-2xl py-3">
+                  {guests}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setGuests((g) => Math.min(20, g + 1))}
+                  className="w-12 h-12 rounded-full bg-white border border-border font-display font-bold text-xl shadow-soft active:scale-95 transition"
+                  aria-label="Añadir asistente"
+                >
+                  +
+                </button>
+              </div>
+
+              <label className="block font-display font-semibold mb-2 text-foreground/80 text-sm">
+                Mensaje para Mateo <span className="text-xs font-normal text-foreground/50">(opcional)</span>
               </label>
               <textarea
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder="¡Feliz cumple Camila!"
+                placeholder="Un mensajito bonito para Mateo…"
                 maxLength={500}
-                rows={2}
-                className="w-full px-5 py-3 rounded-2xl border-2 border-border bg-white/80 text-base font-medium focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 mb-5 resize-none"
+                rows={3}
+                className="w-full px-5 py-3 rounded-2xl border border-border bg-white/85 text-base focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/15 mb-5 resize-none"
               />
 
               {error && (
@@ -66,20 +100,20 @@ export function Rsvp() {
                 </div>
               )}
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <button
                   onClick={() => submit(true)}
                   disabled={!name.trim() || loading}
-                  className="px-6 py-4 bg-gradient-magic text-white font-display font-bold rounded-2xl shadow-soft hover:scale-105 active:scale-95 transition-all disabled:opacity-40 disabled:hover:scale-100"
+                  className="px-6 py-4 bg-gradient-sea text-white font-display font-bold rounded-2xl shadow-soft hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-40 disabled:hover:scale-100"
                 >
-                  {loading ? "✨ ..." : "✨ Sí asistiré"}
+                  {loading ? "Enviando…" : "Sí asistiremos ✨"}
                 </button>
                 <button
                   onClick={() => submit(false)}
                   disabled={!name.trim() || loading}
-                  className="px-6 py-4 bg-white border-2 border-border text-foreground font-display font-bold rounded-2xl shadow-soft hover:scale-105 active:scale-95 transition-all disabled:opacity-40 disabled:hover:scale-100"
+                  className="px-6 py-4 bg-white border border-border text-foreground font-display font-bold rounded-2xl shadow-soft hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-40 disabled:hover:scale-100"
                 >
-                  😢 No podré ir
+                  No podremos ir
                 </button>
               </div>
             </>
@@ -87,21 +121,23 @@ export function Rsvp() {
 
           {submitted === true && (
             <div className="text-center py-6 animate-pop-in">
-              <div className="text-6xl mb-3">🦄✨</div>
-              <h3 className="font-display text-2xl font-bold text-rainbow mb-2">
-                ¡Yupi, {name}!
+              <div className="text-5xl mb-3">🌊✨</div>
+              <h3 className="font-display text-2xl font-bold text-sea-gradient mb-2">
+                ¡Gracias, {name}!
               </h3>
-              <p className="text-foreground/70">Camila se va a poner súper feliz de verte 💖</p>
+              <p className="text-foreground/70">
+                Nos hace muchísima ilusión que vengas. Mateo te espera 💙
+              </p>
             </div>
           )}
 
           {submitted === false && (
             <div className="text-center py-6 animate-pop-in">
-              <div className="text-6xl mb-3">🌈</div>
-              <h3 className="font-display text-2xl font-bold text-rainbow mb-2">
+              <div className="text-5xl mb-3">💙</div>
+              <h3 className="font-display text-2xl font-bold text-sea-gradient mb-2">
                 ¡Te echaremos de menos, {name}!
               </h3>
-              <p className="text-foreground/70">Gracias por avisar 💕</p>
+              <p className="text-foreground/70">Gracias por avisarnos.</p>
             </div>
           )}
         </div>

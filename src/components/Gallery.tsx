@@ -1,13 +1,11 @@
 import { useEffect, useState, useCallback } from "react";
-import img1 from "@/assets/camila-1.jpg";
-import img2 from "@/assets/camila-2.jpg";
-import img3 from "@/assets/camila-3.jpg";
-import img4 from "@/assets/camila-4.jpg";
-import img5 from "@/assets/camila-5.jpg";
-import img6 from "@/assets/camila-6.jpg";
-import img7 from "@/assets/camila-7.jpg";
+import img1 from "@/assets/mateo-1.jpg";
+import img2 from "@/assets/mateo-2.jpg";
+import img3 from "@/assets/mateo-3.jpg";
+import img4 from "@/assets/mateo-4.jpg";
+import img5 from "@/assets/mateo-5.jpg";
 
-const PHOTOS = [img1, img2, img3, img4, img5, img6, img7];
+const PHOTOS = [img1, img2, img3, img4, img5];
 
 export function Gallery() {
   const [idx, setIdx] = useState(0);
@@ -59,22 +57,28 @@ export function Gallery() {
   return (
     <section className="relative py-16 px-4">
       <div className="max-w-3xl mx-auto">
-        <h2 className="text-center font-display text-4xl sm:text-5xl font-bold text-rainbow mb-3">
-          📸 Recuerdos de Camila
-        </h2>
-        <p className="text-center text-foreground/70 mb-10">Momentos mágicos llenos de luz ✨</p>
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/70 backdrop-blur border border-gold-soft/50 text-xs font-display tracking-widest uppercase text-foreground/65 mb-3">
+            Galería
+          </div>
+          <h2 className="font-display text-3xl sm:text-4xl font-bold text-sea-gradient mb-2">
+            El mundo de Mateo
+          </h2>
+          <p className="text-foreground/65">Pequeños momentos, grandes recuerdos ✨</p>
+        </div>
 
         <div
           className="relative aspect-[4/5] sm:aspect-[4/3] rounded-3xl overflow-hidden shadow-card border-4 border-white cursor-pointer"
-          style={{ background: "linear-gradient(135deg, #FADADD 0%, #E0BBE4 50%, #C5E1FF 100%)" }}
+          style={{ background: "linear-gradient(135deg, oklch(0.95 0.03 80), oklch(0.92 0.04 220))" }}
           onClick={() => setOpenIdx(idx)}
         >
           {PHOTOS.map((src, i) => (
             <img
               key={i}
               src={src}
-              alt={`Camila ${i + 1}`}
-              className="absolute inset-0 w-full h-full object-contain transition-opacity duration-1000"
+              alt={`Mateo ${i + 1}`}
+              loading="lazy"
+              className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
               style={{ opacity: i === idx ? 1 : 0 }}
             />
           ))}
@@ -98,14 +102,14 @@ export function Gallery() {
           </div>
 
           <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-4 py-1.5 rounded-full font-display font-bold text-sm shadow-soft">
-            🦄 {idx + 1} / {PHOTOS.length}
+            ✨ {idx + 1} / {PHOTOS.length}
           </div>
           <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1.5 rounded-full font-display font-bold text-xs shadow-soft">
             🔍 Ver
           </div>
         </div>
 
-        <div className="grid grid-cols-7 gap-2 mt-4">
+        <div className="grid grid-cols-5 gap-2 mt-4">
           {PHOTOS.map((src, i) => (
             <button
               key={i}
@@ -113,7 +117,7 @@ export function Gallery() {
               className={`aspect-square rounded-xl overflow-hidden border-2 transition-all ${
                 i === idx ? "border-primary scale-110 shadow-soft" : "border-white/60 opacity-70"
               }`}
-              style={{ background: "#FADADD" }}
+              style={{ background: "oklch(0.95 0.03 80)" }}
             >
               <img src={src} alt="" className="w-full h-full object-cover" />
             </button>
@@ -153,7 +157,7 @@ export function Gallery() {
 
           <img
             src={PHOTOS[openIdx]}
-            alt={`Camila ${openIdx + 1}`}
+            alt={`Mateo ${openIdx + 1}`}
             className="max-w-full max-h-[85vh] object-contain rounded-2xl shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           />
@@ -170,7 +174,7 @@ export function Gallery() {
           </button>
 
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/95 px-4 py-1.5 rounded-full font-display font-bold text-sm shadow-glow">
-            🦄 {openIdx + 1} / {PHOTOS.length}
+            ✨ {openIdx + 1} / {PHOTOS.length}
           </div>
         </div>
       )}
