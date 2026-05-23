@@ -73,14 +73,27 @@ export function Gallery() {
           onClick={() => setOpenIdx(idx)}
         >
           {PHOTOS.map((src, i) => (
-            <img
+            <div
               key={i}
-              src={src}
-              alt={`Mateo ${i + 1}`}
-              loading="lazy"
-              className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+              className="absolute inset-0 transition-opacity duration-1000"
               style={{ opacity: i === idx ? 1 : 0 }}
-            />
+            >
+              {/* Blurred background fill */}
+              <img
+                src={src}
+                alt=""
+                aria-hidden="true"
+                loading="lazy"
+                className="absolute inset-0 w-full h-full object-cover scale-110 blur-2xl opacity-60"
+              />
+              {/* Full image, contained */}
+              <img
+                src={src}
+                alt={`Mateo ${i + 1}`}
+                loading="lazy"
+                className="relative w-full h-full object-contain object-center"
+              />
+            </div>
           ))}
 
           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/40 to-transparent p-6 pointer-events-none">
