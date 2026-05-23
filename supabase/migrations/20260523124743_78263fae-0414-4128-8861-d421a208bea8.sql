@@ -1,0 +1,1 @@
+ALTER TABLE public.rsvp_mateo ADD COLUMN IF NOT EXISTS alergias text;

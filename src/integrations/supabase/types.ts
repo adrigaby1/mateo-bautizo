@@ -40,6 +40,7 @@ export type Database = {
       }
       rsvp_mateo: {
         Row: {
+          alergias: string | null
           asistentes: number
           asistira: boolean
           created_at: string
@@ -48,6 +49,7 @@ export type Database = {
           nombre: string
         }
         Insert: {
+          alergias?: string | null
           asistentes?: number
           asistira: boolean
           created_at?: string
@@ -56,6 +58,7 @@ export type Database = {
           nombre: string
         }
         Update: {
+          alergias?: string | null
           asistentes?: number
           asistira?: boolean
           created_at?: string
