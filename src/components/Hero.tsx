@@ -6,10 +6,10 @@ interface HeroProps {
 
 export function Hero({ onEnter }: HeroProps) {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center px-4 py-12 overflow-hidden">
+    <section className="relative min-h-screen flex flex-col items-center justify-center px-6 sm:px-8 py-16 overflow-hidden">
       {/* Mediterranean glow */}
-      <div className="absolute -top-24 -left-24 w-80 h-80 rounded-full bg-gradient-sea opacity-25 blur-3xl" />
-      <div className="absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-gradient-gold opacity-30 blur-3xl" />
+      <div className="absolute -top-32 -left-32 w-[28rem] h-[28rem] rounded-full bg-gradient-sea opacity-[0.14] blur-3xl" />
+      <div className="absolute -bottom-32 -right-32 w-[32rem] h-[32rem] rounded-full bg-gradient-gold opacity-[0.22] blur-3xl" />
 
       {/* Soft animated wave at bottom */}
       <svg
@@ -30,45 +30,55 @@ export function Hero({ onEnter }: HeroProps) {
         </defs>
       </svg>
 
-      <div className="relative z-10 flex flex-col items-center text-center max-w-2xl animate-pop-in">
-        <div className="mb-6 relative flex items-center justify-center">
-          {/* warm outer glow */}
-          <div className="absolute inset-0 bg-gradient-gold rounded-full blur-[80px] opacity-50 scale-125" />
-          <div className="absolute inset-0 bg-sky-med rounded-full blur-[90px] opacity-40 scale-110" />
-          {/* soft glass backdrop */}
-          <div className="absolute w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-white/30 backdrop-blur-md border border-white/40 shadow-[0_20px_60px_-20px_rgba(45,86,113,0.25)]" />
+      <div className="relative z-10 flex flex-col items-center text-center max-w-2xl">
+        <div className="mb-8 relative flex items-center justify-center reveal-up">
+          {/* radial blur halo - integrates avatar with background */}
+          <div
+            className="absolute w-[22rem] h-[22rem] sm:w-[28rem] sm:h-[28rem] rounded-full opacity-80 blur-3xl"
+            style={{
+              background:
+                "radial-gradient(circle at 50% 45%, oklch(0.95 0.04 80 / 0.85) 0%, oklch(0.92 0.035 230 / 0.55) 40%, transparent 72%)",
+            }}
+          />
+          {/* warm dorado glow */}
+          <div className="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-gold-soft opacity-30 blur-[100px]" />
+          {/* very subtle translucent ring */}
+          <div className="absolute w-60 h-60 sm:w-72 sm:h-72 rounded-full border border-white/30 backdrop-blur-[2px]" />
           <img
             src={mateoAvatar}
             alt="Mateo - Bautizo y 1er cumpleaños"
-            className="relative w-72 h-72 sm:w-96 sm:h-96 object-contain animate-float animate-fade-in"
-            style={{ filter: "drop-shadow(0 18px 30px rgba(45,86,113,0.22))" }}
+            className="relative w-72 h-72 sm:w-96 sm:h-96 object-contain animate-soft-float"
+            style={{ filter: "drop-shadow(0 28px 40px rgba(45,86,113,0.18)) drop-shadow(0 6px 12px rgba(221,190,135,0.25))" }}
           />
         </div>
 
-        <div className="mb-3 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/70 backdrop-blur border border-gold-soft/50 text-xs sm:text-sm font-display tracking-widest uppercase text-foreground/70">
-          ⛪ Bautizo + 1er Cumpleaños ✨
+        <div className="mb-4 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/60 backdrop-blur border border-gold-soft/40 text-[11px] sm:text-xs font-display tracking-[0.22em] uppercase text-foreground/60 reveal-up delay-1">
+          Bautizo · 1er Cumpleaños
         </div>
 
-        <h1 className="font-display text-3xl sm:text-5xl font-bold text-sea-gradient leading-tight mb-4 px-2">
-          Mateo celebra su Bautizo y 1<sup>er</sup> cumpleaños ✨
+        <h1 className="font-display text-3xl sm:text-5xl font-semibold leading-[1.15] mb-5 px-2 reveal-up delay-2">
+          <span className="block text-sea-muted font-medium">Mateo celebra su</span>
+          <span className="block text-gold-warm font-bold mt-1">Bautizo</span>
+          <span className="block text-sea-muted text-2xl sm:text-3xl font-light tracking-wide my-1">y su</span>
+          <span className="block text-olive-soft font-bold">1<sup className="text-base align-super">er</sup> cumpleaños</span>
         </h1>
 
-        <p className="text-base sm:text-xl text-foreground/75 font-medium mb-8 max-w-xl">
+        <p className="text-base sm:text-lg text-foreground/65 font-normal mb-10 max-w-md leading-relaxed reveal-up delay-3">
           Nos haría muchísima ilusión compartir este día tan especial contigo
         </p>
 
         <button
           onClick={onEnter}
-          className="group relative px-10 py-5 bg-gradient-sea text-white text-lg sm:text-xl font-display font-bold rounded-full shadow-glow hover:scale-105 active:scale-95 transition-all duration-300"
+          className="group relative px-10 py-5 bg-gradient-sea text-white text-base sm:text-lg font-display font-semibold tracking-wide rounded-full shadow-soft hover:shadow-glow hover:scale-[1.03] active:scale-95 transition-all duration-500 reveal-up delay-3"
         >
           <span className="relative z-10 flex items-center gap-2">
-            Entrar a la invitación ✨
+            Entrar a la invitación
           </span>
-          <div className="absolute inset-0 rounded-full bg-gradient-gold opacity-0 group-hover:opacity-40 blur-xl transition-opacity" />
+          <div className="absolute inset-0 rounded-full bg-gradient-gold opacity-0 group-hover:opacity-30 blur-xl transition-opacity" />
         </button>
 
-        <div className="mt-8 text-xs sm:text-sm text-muted-foreground animate-twinkle">
-          Desliza hacia abajo ⬇️
+        <div className="mt-10 text-[11px] sm:text-xs text-muted-foreground tracking-[0.2em] uppercase font-display">
+          Desliza hacia abajo
         </div>
       </div>
     </section>
