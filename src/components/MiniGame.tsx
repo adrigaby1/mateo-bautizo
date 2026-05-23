@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 
-const STARS = [
+const STARS_ES = [
   { x: 12, y: 20, msg: "Mateo llegó para llenar nuestra vida de luz ✨" },
   { x: 78, y: 15, msg: "Su sonrisa es como el mar en calma 🌊" },
   { x: 30, y: 55, msg: "Hoy bautizamos a Mateo con todo nuestro amor 💙" },
@@ -9,7 +9,25 @@ const STARS = [
   { x: 85, y: 80, msg: "El mejor regalo es tenerte aquí 💛" },
 ];
 
-export function MiniGame() {
+const STARS_EN = [
+  { x: 12, y: 20, msg: "Mateo came to fill our lives with light ✨" },
+  { x: 78, y: 15, msg: "His smile is like a calm sea 🌊" },
+  { x: 30, y: 55, msg: "Today we baptize Mateo with all our love 💙" },
+  { x: 65, y: 65, msg: "1 year full of small great joys 🌟" },
+  { x: 18, y: 78, msg: "Thank you for celebrating this day with us 🐚" },
+  { x: 85, y: 80, msg: "The best gift is having you here 💛" },
+];
+
+export function MiniGame({ lang = "es" }: { lang?: "es" | "en" }) {
+  const STARS = lang === "en" ? STARS_EN : STARS_ES;
+  const t = {
+    badge: lang === "en" ? "Little experience" : "Pequeña experiencia",
+    title: lang === "en" ? "Catch the stars!" : "Toca las estrellas del mar",
+    sub: lang === "en" ? "Touch all the magical stars and sea treasures ✨" : "Descubre mensajitos escondidos entre las olas",
+    discover: lang === "en" ? "Discover message" : "Descubrir mensaje",
+    tap: lang === "en" ? "tap to close" : "toca para cerrar",
+    found: lang === "en" ? "messages discovered" : "mensajes descubiertos",
+  };
   const [discovered, setDiscovered] = useState<Set<number>>(new Set());
   const [active, setActive] = useState<number | null>(null);
 
@@ -35,13 +53,13 @@ export function MiniGame() {
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/70 backdrop-blur border border-gold-soft/50 text-xs font-display tracking-widest uppercase text-foreground/65 mb-3">
-            Pequeña experiencia
+            {t.badge}
           </div>
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-sea-gradient mb-2">
-            Toca las estrellas del mar
+            {t.title}
           </h2>
           <p className="text-foreground/65 text-sm sm:text-base">
-            Descubre mensajitos escondidos entre las olas
+            {t.sub}
           </p>
         </div>
 
@@ -86,7 +104,7 @@ export function MiniGame() {
                     fontSize: "34px",
                     filter: "drop-shadow(0 2px 8px rgba(255,255,255,0.6))",
                   }}
-                  aria-label={`Descubrir mensaje ${i + 1}`}
+                  aria-label={`${t.discover} ${i + 1}`}
                 >
                   {found ? "🌟" : "⭐"}
                 </button>
@@ -103,14 +121,14 @@ export function MiniGame() {
                   {STARS[active].msg}
                 </p>
                 <span className="block mt-2 text-[11px] uppercase tracking-widest text-foreground/45">
-                  toca para cerrar
+                  {t.tap}
                 </span>
               </button>
             )}
           </div>
 
           <div className="mt-4 text-center text-sm font-display text-foreground/65">
-            ⭐ {discovered.size} / {STARS.length} mensajes descubiertos
+            ⭐ {discovered.size} / {STARS.length} {t.found}
           </div>
         </div>
       </div>
