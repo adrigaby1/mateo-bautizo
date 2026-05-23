@@ -9,6 +9,7 @@ import { Farewell } from "@/components/Farewell";
 import { EmotionalNote } from "@/components/EmotionalNote";
 import { FloatingDecor } from "@/components/FloatingDecor";
 import { MusicPlayer, type MusicPlayerHandle } from "@/components/MusicPlayer";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -57,6 +58,7 @@ function Index() {
   return (
     <main className="relative min-h-screen bg-sky-magic overflow-x-hidden">
       <FloatingDecor />
+      <LanguageSwitcher current="es" />
       <div className="relative z-10">
         <Hero onEnter={handleEnter} entered={entered} />
         <EventDetails />
