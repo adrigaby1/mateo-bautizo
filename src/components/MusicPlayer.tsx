@@ -42,8 +42,7 @@ export const MusicPlayer = forwardRef<MusicPlayerHandle>(function MusicPlayer(_,
       <button
         onClick={toggle}
         aria-label={playing ? "Pausar música" : "Reproducir música"}
-        style={{ bottom: "24px", left: "20px" }}
-        className={`fixed z-[100] flex items-center gap-2 pl-3 pr-4 py-3 rounded-full bg-gradient-magic text-white font-display text-sm shadow-glow hover:scale-105 active:scale-95 transition-all ${
+        className={`fixed z-[100] bottom-[18px] left-4 sm:bottom-6 sm:left-6 flex items-center gap-2 pl-3 pr-4 py-3 rounded-full bg-gradient-magic text-white font-display text-sm shadow-glow hover:scale-105 active:scale-95 transition-all ${
           !playing ? "animate-pulse-soft" : ""
         }`}
       >
