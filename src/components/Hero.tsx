@@ -32,11 +32,11 @@ export function Hero({ onEnter }: HeroProps) {
 
       <div className="relative z-10 flex flex-col items-center text-center max-w-2xl animate-pop-in">
         <div className="mb-6 relative">
-          <div className="absolute inset-0 bg-gradient-gold rounded-full blur-2xl opacity-50 scale-110" />
+          <div className="absolute inset-0 bg-gradient-gold rounded-full blur-3xl opacity-60 scale-110" />
           <img
             src={mateoAvatar}
-            alt="Mateo"
-            className="relative w-56 h-56 sm:w-72 sm:h-72 object-contain drop-shadow-2xl animate-float"
+            alt="Mateo - Bautizo y 1er cumpleaños"
+            className="relative w-72 h-72 sm:w-96 sm:h-96 object-contain drop-shadow-2xl animate-float animate-fade-in"
           />
         </div>
 

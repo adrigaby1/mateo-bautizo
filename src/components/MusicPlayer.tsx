@@ -12,7 +12,7 @@ export const MusicPlayer = forwardRef<MusicPlayerHandle>(function MusicPlayer(_,
     const a = audioRef.current;
     if (!a) return;
     try {
-      a.volume = 0.5;
+      a.volume = 0.25;
       await a.play();
       setPlaying(true);
     } catch {
@@ -38,7 +38,7 @@ export const MusicPlayer = forwardRef<MusicPlayerHandle>(function MusicPlayer(_,
 
   return (
     <>
-      <audio ref={audioRef} src="/music/birthday-music.mp3" loop preload="auto" />
+      <audio ref={audioRef} src="/music/mateo-music.mp3" loop preload="auto" />
       <button
         onClick={toggle}
         aria-label={playing ? "Pausar música" : "Reproducir música"}
@@ -49,7 +49,7 @@ export const MusicPlayer = forwardRef<MusicPlayerHandle>(function MusicPlayer(_,
       >
         <span className="text-xl leading-none">{playing ? "⏸️" : "🎵"}</span>
         <span className="whitespace-nowrap">
-          {playing ? "Pausar" : "Tocar música"}
+          {playing ? "Pausar" : "Música"}
         </span>
       </button>
     </>
