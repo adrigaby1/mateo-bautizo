@@ -11,7 +11,7 @@ type Place = {
   embedQuery: string;
 };
 
-const CHURCH: Place = {
+const CHURCH_ES: Place = {
   icon: "⛪",
   tag: "Bautizo",
   time: "12:00",
@@ -21,7 +21,7 @@ const CHURCH: Place = {
   embedQuery: "Iglesia La Encarnación Marbella",
 };
 
-const RESTAURANT: Place = {
+const RESTAURANT_ES: Place = {
   icon: "🍽️",
   tag: "Comida",
   time: "14:30",
@@ -31,7 +31,10 @@ const RESTAURANT: Place = {
   embedQuery: "Simbad Restaurant and Beach Bar Marbella",
 };
 
-function PlaceCard({ place }: { place: Place }) {
+const CHURCH_EN: Place = { ...CHURCH_ES, tag: "Baptism", address: "Marbella" };
+const RESTAURANT_EN: Place = { ...RESTAURANT_ES, tag: "Lunch", address: "Marbella · seafront" };
+
+function PlaceCard({ place, ctaLabel }: { place: Place; ctaLabel: string }) {
   const embed = `https://www.google.com/maps?q=${encodeURIComponent(place.embedQuery)}&output=embed`;
   return (
     <div className="bg-white/75 backdrop-blur-md rounded-[28px] shadow-soft p-6 sm:p-7 border border-white/80 reveal-up">
@@ -64,13 +67,31 @@ function PlaceCard({ place }: { place: Place }) {
         className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-gradient-sea text-white font-display font-semibold tracking-wide rounded-full hover:scale-[1.02] active:scale-95 transition-all"
       >
         <span className="text-base">📍</span>
-        <span>Cómo llegar</span>
+        <span>{ctaLabel}</span>
       </button>
     </div>
   );
 }
 
-export function EventDetails() {
+export function EventDetails({ lang = "es" }: { lang?: "es" | "en" }) {
+  const t = {
+    badge: lang === "en" ? "Special Details" : "Detalles del día",
+    date: lang === "en" ? "Sunday, July 5th 2026" : "Domingo, 5 de Julio 2026",
+    sub: lang === "en" ? "Marbella · by the Mediterranean" : "Marbella · frente al Mediterráneo",
+    countdown: lang === "en" ? "Magical countdown" : "Cuenta atrás",
+    addCal: lang === "en" ? "Add to calendar 📅" : "Añadir al calendario 📅",
+    dayTitle: lang === "en" ? "How the day will go" : "Así será el día",
+    baptism: lang === "en" ? "Mateo's Baptism" : "Bautizo de Mateo",
+    churchAddr: lang === "en" ? "La Encarnación Church · Marbella" : "Iglesia La Encarnación · Marbella",
+    lunch: lang === "en" ? "Lunch and celebration" : "Comida y celebración",
+    restAddr: lang === "en" ? "Simbad Restaurant · seafront" : "Simbad Restaurant · frente al mar",
+    confirm: lang === "en" ? "Confirm attendance" : "Confirmar asistencia",
+    confirmSub: lang === "en" ? "We'd love to know if you'll be there" : "Nos encantaría saber si nos acompañas",
+    directions: lang === "en" ? "Get directions" : "Cómo llegar",
+  };
+  const CHURCH = lang === "en" ? CHURCH_EN : CHURCH_ES;
+  const RESTAURANT = lang === "en" ? RESTAURANT_EN : RESTAURANT_ES;
+
   const scrollToRsvp = () => {
     document.getElementById("rsvp")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
@@ -80,27 +101,27 @@ export function EventDetails() {
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12 reveal-up">
           <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/60 backdrop-blur border border-gold-soft/40 text-[11px] font-display tracking-[0.22em] uppercase text-foreground/55 mb-4">
-            Detalles del día
+            {t.badge}
           </div>
           <h2 className="font-display text-3xl sm:text-5xl font-semibold text-sea-muted mb-3">
-            Domingo, 5 de Julio 2026
+            {t.date}
           </h2>
-          <p className="text-foreground/60">Marbella · frente al Mediterráneo</p>
+          <p className="text-foreground/60">{t.sub}</p>
         </div>
 
         {/* Countdown card */}
         <div className="bg-white/70 backdrop-blur-md rounded-[28px] shadow-soft p-6 sm:p-8 border border-white/80 mb-8 reveal-up delay-1">
           <h3 className="font-display text-[11px] sm:text-xs font-semibold mb-5 text-center text-foreground/55 tracking-[0.25em] uppercase">
-            Cuenta atrás
+            {t.countdown}
           </h3>
-          <Countdown />
+          <Countdown lang={lang} />
           <div className="mt-6 flex justify-center">
             <button
               onClick={downloadMateoIcs}
               type="button"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white border border-gold-soft/50 text-foreground/80 font-display font-semibold text-sm rounded-full shadow-soft hover:scale-[1.02] active:scale-95 transition-all"
             >
-              Añadir al calendario 📅
+              {t.addCal}
             </button>
           </div>
         </div>
@@ -108,7 +129,7 @@ export function EventDetails() {
         {/* Timeline */}
         <div className="bg-white/70 backdrop-blur-md rounded-[28px] shadow-soft p-7 sm:p-9 border border-white/80 mb-8 reveal-up delay-2">
           <h3 className="font-display text-xl sm:text-2xl font-semibold text-center mb-7 text-foreground/80">
-            Así será el día
+            {t.dayTitle}
           </h3>
           <ol className="relative border-l border-gold-soft/40 ml-4 space-y-7">
             <li className="ml-6 relative">
@@ -118,8 +139,8 @@ export function EventDetails() {
               <div className="text-[10px] uppercase tracking-[0.22em] font-display text-foreground/50">
                 12:00
               </div>
-              <div className="font-display text-lg font-semibold text-foreground/85">Bautizo de Mateo</div>
-              <div className="text-sm text-foreground/60">Iglesia La Encarnación · Marbella</div>
+              <div className="font-display text-lg font-semibold text-foreground/85">{t.baptism}</div>
+              <div className="text-sm text-foreground/60">{t.churchAddr}</div>
             </li>
             <li className="ml-6 relative">
               <span className="absolute -left-[34px] top-0 w-7 h-7 rounded-full bg-gradient-gold flex items-center justify-center text-white text-xs">
@@ -128,16 +149,16 @@ export function EventDetails() {
               <div className="text-[10px] uppercase tracking-[0.22em] font-display text-foreground/50">
                 14:30
               </div>
-              <div className="font-display text-lg font-semibold text-foreground/85">Comida y celebración</div>
-              <div className="text-sm text-foreground/60">Simbad Restaurant · frente al mar</div>
+              <div className="font-display text-lg font-semibold text-foreground/85">{t.lunch}</div>
+              <div className="text-sm text-foreground/60">{t.restAddr}</div>
             </li>
           </ol>
         </div>
 
         {/* Two places */}
         <div className="grid md:grid-cols-2 gap-6 sm:gap-7">
-          <PlaceCard place={CHURCH} />
-          <PlaceCard place={RESTAURANT} />
+          <PlaceCard place={CHURCH} ctaLabel={t.directions} />
+          <PlaceCard place={RESTAURANT} ctaLabel={t.directions} />
         </div>
 
         {/* CTA */}
@@ -147,10 +168,10 @@ export function EventDetails() {
             type="button"
             className="w-full flex items-center justify-center gap-3 px-8 py-5 bg-gradient-sea text-white text-base sm:text-lg font-display font-semibold tracking-wide rounded-full shadow-soft hover:shadow-glow hover:scale-[1.01] active:scale-95 transition-all"
           >
-            <span>Confirmar asistencia</span>
+            <span>{t.confirm}</span>
           </button>
           <p className="text-center text-xs text-foreground/50 mt-3 tracking-wide">
-            Nos encantaría saber si nos acompañas
+            {t.confirmSub}
           </p>
         </div>
       </div>
