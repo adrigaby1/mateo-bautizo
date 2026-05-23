@@ -37,8 +37,8 @@ export const Route = createRootRoute({
       { name: "twitter:description", content: "Invitación digital al bautizo y 1er cumpleaños de Mateo — 5 de julio de 2026, Marbella" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/yNS6AmhGPHT88PDgk5e37xao27q1/social-images/social-1779541121184-ChatGPT_Image_23_may_2026,_13_26_04.webp" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/yNS6AmhGPHT88PDgk5e37xao27q1/social-images/social-1779541121184-ChatGPT_Image_23_may_2026,_13_26_04.webp" },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/yNS6AmhGPHT88PDgk5e37xao27q1/social-images/social-1779541386339-mateo-social-1200x630.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/yNS6AmhGPHT88PDgk5e37xao27q1/social-images/social-1779541386339-mateo-social-1200x630.webp" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
