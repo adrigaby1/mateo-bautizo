@@ -8,8 +8,10 @@ interface HeroProps {
 export function Hero({ onEnter, entered }: HeroProps) {
   return (
     <section
-      className={`relative flex flex-col items-center justify-center px-6 sm:px-8 py-16 transition-all duration-700 ease-out ${
-        entered ? "min-h-screen opacity-100" : "h-screen overflow-hidden"
+      className={`relative flex flex-col items-center px-4 sm:px-8 transition-all duration-700 ease-out ${
+        entered
+          ? "min-h-[100dvh] justify-center py-12 sm:py-16 opacity-100"
+          : "h-[100dvh] justify-evenly py-4 sm:py-8 overflow-hidden"
       }`}
     >
       {/* Mediterranean glow */}
@@ -35,8 +37,8 @@ export function Hero({ onEnter, entered }: HeroProps) {
         </defs>
       </svg>
 
-      <div className="relative z-10 flex flex-col items-center text-center max-w-2xl">
-        <div className="mb-8 relative flex items-center justify-center reveal-up">
+      <div className={`relative z-10 flex flex-col items-center text-center max-w-2xl w-full ${entered ? "gap-6 sm:gap-8" : "gap-3 sm:gap-5 lg:gap-7 justify-evenly flex-1"}`}>
+        <div className="relative flex items-center justify-center reveal-up shrink-0">
           {/* radial blur halo - integrates avatar with background */}
           <div
             className="absolute w-[40rem] h-[40rem] sm:w-[52rem] sm:h-[52rem] rounded-full opacity-80 blur-3xl"
@@ -50,29 +52,32 @@ export function Hero({ onEnter, entered }: HeroProps) {
           <img
             src={mateoAvatar}
             alt="Mateo - Bautizo y 1er cumpleaños"
-            className="relative w-[36rem] h-[36rem] sm:w-[44rem] sm:h-[44rem] max-w-[92vw] max-h-[92vw] object-contain animate-soft-float rounded-full"
+            className="relative object-contain animate-soft-float rounded-full max-w-[92vw] w-auto h-auto max-h-[38vh] md:max-h-[42vh] lg:max-h-[50vh]"
             style={{ filter: "drop-shadow(0 28px 40px rgba(45,86,113,0.18)) drop-shadow(0 6px 12px rgba(221,190,135,0.25))" }}
           />
         </div>
 
-        <div className="mb-4 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/60 backdrop-blur border border-gold-soft/40 text-[11px] sm:text-xs font-display tracking-[0.22em] uppercase text-foreground/60 reveal-up delay-1">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/60 backdrop-blur border border-gold-soft/40 text-[10px] sm:text-xs font-display tracking-[0.22em] uppercase text-foreground/60 reveal-up delay-1 shrink-0">
           Bautizo · 1er Cumpleaños
         </div>
 
-        <h1 className="font-display text-3xl sm:text-5xl font-semibold leading-[1.15] mb-5 px-2 reveal-up delay-2">
+        <h1
+          className="font-display font-semibold leading-[1.1] px-2 reveal-up delay-2 shrink-0"
+          style={{ fontSize: "clamp(1.6rem, 5vw, 2.75rem)" }}
+        >
           <span className="block text-sea-muted font-medium">Mateo celebra su</span>
           <span className="block text-gold-warm font-bold mt-1">Bautizo</span>
-          <span className="block text-sea-muted text-2xl sm:text-3xl font-light tracking-wide my-1">y su</span>
+          <span className="block text-sea-muted font-light tracking-wide my-0.5" style={{ fontSize: "clamp(1.1rem, 3.5vw, 1.75rem)" }}>y su</span>
           <span className="block text-olive-soft font-bold">1<sup className="text-base align-super">er</sup> cumpleaños</span>
         </h1>
 
-        <p className="text-base sm:text-lg text-foreground/65 font-normal mb-10 max-w-md leading-relaxed reveal-up delay-3">
+        <p className="text-sm sm:text-base lg:text-lg text-foreground/65 font-normal max-w-md leading-snug sm:leading-relaxed reveal-up delay-3 line-clamp-2 shrink-0">
           Nos haría muchísima ilusión compartir este día tan especial contigo
         </p>
 
         <button
           onClick={onEnter}
-          className="group relative px-10 py-5 bg-gradient-sea text-white text-base sm:text-lg font-display font-semibold tracking-wide rounded-full shadow-soft hover:shadow-glow hover:scale-[1.03] active:scale-95 transition-all duration-500 reveal-up delay-3"
+          className="group relative px-8 sm:px-10 py-4 sm:py-5 bg-gradient-sea text-white text-sm sm:text-base lg:text-lg font-display font-semibold tracking-wide rounded-full shadow-soft hover:shadow-glow hover:scale-[1.03] active:scale-95 transition-all duration-500 reveal-up delay-3 shrink-0 mb-5"
         >
           <span className="relative z-10 flex items-center gap-2">
             Entrar a la invitación
@@ -80,9 +85,11 @@ export function Hero({ onEnter, entered }: HeroProps) {
           <div className="absolute inset-0 rounded-full bg-gradient-gold opacity-0 group-hover:opacity-30 blur-xl transition-opacity" />
         </button>
 
-        <div className="mt-10 text-[11px] sm:text-xs text-muted-foreground tracking-[0.2em] uppercase font-display">
-          Desliza hacia abajo
-        </div>
+        {entered && (
+          <div className="text-[11px] sm:text-xs text-muted-foreground tracking-[0.2em] uppercase font-display">
+            Desliza hacia abajo
+          </div>
+        )}
       </div>
     </section>
   );
