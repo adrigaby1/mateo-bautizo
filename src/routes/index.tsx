@@ -33,15 +33,32 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const musicRef = useRef<MusicPlayerHandle>(null);
+  const [entered, setEntered] = useState(false);
+
+  useEffect(() => {
+    if (!entered) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [entered]);
+
+  const handleEnter = () => {
+    setEntered(true);
+    musicRef.current?.tryPlay();
+    setTimeout(() => {
+      document.getElementById("ubicacion")?.scrollIntoView({ behavior: "smooth" });
+    }, 50);
+  };
 
   return (
     <main className="relative min-h-screen bg-sky-magic overflow-x-hidden">
       <FloatingDecor />
       <div className="relative z-10">
-        <Hero onEnter={() => {
-          musicRef.current?.tryPlay();
-          document.getElementById("ubicacion")?.scrollIntoView({ behavior: "smooth" });
-        }} />
+        <Hero onEnter={handleEnter} entered={entered} />
         <EventDetails />
         <Rsvp />
         <Gallery />
