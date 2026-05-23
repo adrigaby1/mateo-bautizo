@@ -3,9 +3,26 @@ import mateoAvatar from "@/assets/mateo-avatar.png";
 interface HeroProps {
   onEnter: () => void;
   entered?: boolean;
+  lang?: "es" | "en";
 }
 
-export function Hero({ onEnter, entered }: HeroProps) {
+export function Hero({ onEnter, entered, lang = "es" }: HeroProps) {
+  const t = {
+    badge: lang === "en" ? "Baptism · 1st Birthday" : "Bautizo · 1er Cumpleaños",
+    line1: lang === "en" ? "Mateo celebrates his" : "Mateo celebra su",
+    line2: lang === "en" ? "Baptism" : "Bautizo",
+    line3: lang === "en" ? "and his" : "y su",
+    line4Pre: lang === "en" ? "1" : "1",
+    line4Sup: lang === "en" ? "st" : "er",
+    line4Post: lang === "en" ? " birthday" : " cumpleaños",
+    subtitle:
+      lang === "en"
+        ? "We would be truly delighted to share this special day with you"
+        : "Nos haría muchísima ilusión compartir este día tan especial contigo",
+    cta: lang === "en" ? "Enter invitation" : "Entrar a la invitación",
+    scroll: lang === "en" ? "Scroll down" : "Desliza hacia abajo",
+    alt: lang === "en" ? "Mateo - Baptism and 1st birthday" : "Mateo - Bautizo y 1er cumpleaños",
+  };
   return (
     <section
       className={`relative flex flex-col items-center px-4 sm:px-8 transition-all duration-700 ease-out ${
@@ -64,7 +81,7 @@ export function Hero({ onEnter, entered }: HeroProps) {
           <div className="absolute w-[36rem] h-[36rem] sm:w-[44rem] sm:h-[44rem] rounded-full bg-gold-soft opacity-30 blur-[120px] pointer-events-none" />
           <img
             src={mateoAvatar}
-            alt="Mateo - Bautizo y 1er cumpleaños"
+            alt={t.alt}
             className="relative object-contain animate-soft-float rounded-full max-w-[92vw] w-auto h-auto max-h-[min(34vh,240px)] sm:max-h-[min(32vh,260px)] lg:max-h-[min(34vh,300px)]"
             style={{
               filter:
@@ -74,21 +91,21 @@ export function Hero({ onEnter, entered }: HeroProps) {
         </div>
 
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/60 backdrop-blur border border-gold-soft/40 text-[10px] sm:text-xs font-display tracking-[0.22em] uppercase text-foreground/60 reveal-up delay-1 shrink-0">
-          Bautizo · 1er Cumpleaños
+          {t.badge}
         </div>
 
         <h1
           className="font-display font-semibold leading-[1.1] px-2 reveal-up delay-2 shrink-0"
           style={{ fontSize: "clamp(1.6rem, 5vw, 2.75rem)" }}
         >
-          <span className="block text-sea-muted font-medium">Mateo celebra su</span>
-          <span className="block text-gold-warm font-bold mt-1">Bautizo</span>
-          <span className="block text-sea-muted font-light tracking-wide my-0.5" style={{ fontSize: "clamp(1.1rem, 3.5vw, 1.75rem)" }}>y su</span>
-          <span className="block text-olive-soft font-bold">1<sup className="text-base align-super">er</sup> cumpleaños</span>
+          <span className="block text-sea-muted font-medium">{t.line1}</span>
+          <span className="block text-gold-warm font-bold mt-1">{t.line2}</span>
+          <span className="block text-sea-muted font-light tracking-wide my-0.5" style={{ fontSize: "clamp(1.1rem, 3.5vw, 1.75rem)" }}>{t.line3}</span>
+          <span className="block text-olive-soft font-bold">{t.line4Pre}<sup className="text-base align-super">{t.line4Sup}</sup>{t.line4Post}</span>
         </h1>
 
         <p className="text-sm sm:text-base lg:text-lg text-foreground/65 font-normal max-w-md leading-snug sm:leading-relaxed reveal-up delay-3 line-clamp-2 shrink-0">
-          Nos haría muchísima ilusión compartir este día tan especial contigo
+          {t.subtitle}
         </p>
 
         <button
@@ -96,14 +113,14 @@ export function Hero({ onEnter, entered }: HeroProps) {
           className="group relative px-8 sm:px-10 py-4 sm:py-5 bg-gradient-sea text-white text-sm sm:text-base lg:text-lg font-display font-semibold tracking-wide rounded-full shadow-soft hover:shadow-glow hover:scale-[1.03] active:scale-95 transition-all duration-500 reveal-up delay-3 shrink-0 mb-5"
         >
           <span className="relative z-10 flex items-center gap-2">
-            Entrar a la invitación
+            {t.cta}
           </span>
           <div className="absolute inset-0 rounded-full bg-gradient-gold opacity-0 group-hover:opacity-30 blur-xl transition-opacity" />
         </button>
 
         {entered && (
           <div className="text-[11px] sm:text-xs text-muted-foreground tracking-[0.2em] uppercase font-display">
-            Desliza hacia abajo
+            {t.scroll}
           </div>
         )}
       </div>
