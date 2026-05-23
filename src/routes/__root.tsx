@@ -29,16 +29,8 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "✨ Bautizo y 1er cumpleaños de Mateo · Marbella 2026" },
-      { name: "description", content: "Invitación digital al bautizo y 1er cumpleaños de Mateo — 5 de julio de 2026, Marbella" },
-      { property: "og:title", content: "✨ Bautizo y 1er cumpleaños de Mateo · Marbella 2026" },
-      { name: "twitter:title", content: "✨ Bautizo y 1er cumpleaños de Mateo · Marbella 2026" },
-      { property: "og:description", content: "Invitación digital al bautizo y 1er cumpleaños de Mateo — 5 de julio de 2026, Marbella" },
-      { name: "twitter:description", content: "Invitación digital al bautizo y 1er cumpleaños de Mateo — 5 de julio de 2026, Marbella" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/yNS6AmhGPHT88PDgk5e37xao27q1/social-images/social-1779547075239-InShot_20260523_163644596.webp" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/yNS6AmhGPHT88PDgk5e37xao27q1/social-images/social-1779547075239-InShot_20260523_163644596.webp" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
