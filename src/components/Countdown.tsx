@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const EVENT_DATE = new Date("2026-07-05T12:00:00");
 
-export function Countdown() {
+export function Countdown({ lang = "es" }: { lang?: "es" | "en" }) {
   const [time, setTime] = useState(getTimeLeft());
 
   useEffect(() => {
@@ -21,11 +21,14 @@ export function Countdown() {
     };
   }
 
+  const labels = lang === "en"
+    ? { d: "Days", h: "Hours", m: "Min", s: "Sec" }
+    : { d: "Días", h: "Horas", m: "Min", s: "Seg" };
   const items = [
-    { label: "Días", value: time.d },
-    { label: "Horas", value: time.h },
-    { label: "Min", value: time.m },
-    { label: "Seg", value: time.s },
+    { label: labels.d, value: time.d },
+    { label: labels.h, value: time.h },
+    { label: labels.m, value: time.m },
+    { label: labels.s, value: time.s },
   ];
 
   return (

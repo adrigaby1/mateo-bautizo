@@ -7,7 +7,17 @@ import img5 from "@/assets/mateo-5.jpg";
 
 const PHOTOS = [img1, img2, img3, img4, img5];
 
-export function Gallery() {
+export function Gallery({ lang = "es" }: { lang?: "es" | "en" }) {
+  const t = {
+    badge: lang === "en" ? "Gallery" : "Galería",
+    title: lang === "en" ? "Mateo's World" : "El mundo de Mateo",
+    sub: lang === "en" ? "Little moments, beautiful memories" : "Pequeños momentos, grandes recuerdos",
+    view: lang === "en" ? "View" : "Ver",
+    prev: lang === "en" ? "Previous" : "Anterior",
+    next: lang === "en" ? "Next" : "Siguiente",
+    close: lang === "en" ? "Close" : "Cerrar",
+    goto: lang === "en" ? "Go to photo" : "Ir a foto",
+  };
   const [idx, setIdx] = useState(0);
   const [openIdx, setOpenIdx] = useState<number | null>(null);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
@@ -59,12 +69,12 @@ export function Gallery() {
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12 reveal-up">
           <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/60 backdrop-blur border border-gold-soft/40 text-[11px] font-display tracking-[0.22em] uppercase text-foreground/55 mb-3">
-            Galería
+            {t.badge}
           </div>
           <h2 className="font-display text-3xl sm:text-4xl font-semibold text-sea-muted mb-2">
-            El mundo de Mateo
+            {t.title}
           </h2>
-          <p className="text-foreground/60">Pequeños momentos, grandes recuerdos</p>
+          <p className="text-foreground/60">{t.sub}</p>
         </div>
 
         <div
@@ -105,7 +115,7 @@ export function Gallery() {
                     e.stopPropagation();
                     setIdx(i);
                   }}
-                  aria-label={`Ir a foto ${i + 1}`}
+                  aria-label={`${t.goto} ${i + 1}`}
                   className={`h-2 rounded-full transition-all pointer-events-auto ${
                     i === idx ? "w-8 bg-white" : "w-2 bg-white/60"
                   }`}
@@ -118,7 +128,7 @@ export function Gallery() {
             ✨ {idx + 1} / {PHOTOS.length}
           </div>
           <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1.5 rounded-full font-display font-bold text-xs shadow-soft">
-            🔍 Ver
+            🔍 {t.view}
           </div>
         </div>
 
@@ -151,7 +161,7 @@ export function Gallery() {
               e.stopPropagation();
               closeModal();
             }}
-            aria-label="Cerrar"
+            aria-label={t.close}
             className="absolute top-4 right-4 w-12 h-12 rounded-full bg-white/95 text-2xl font-bold shadow-glow hover:scale-110 transition-all flex items-center justify-center"
           >
             ✕
@@ -162,7 +172,7 @@ export function Gallery() {
               e.stopPropagation();
               prev();
             }}
-            aria-label="Anterior"
+            aria-label={t.prev}
             className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/95 text-2xl font-bold shadow-glow hover:scale-110 transition-all flex items-center justify-center"
           >
             ‹
@@ -180,7 +190,7 @@ export function Gallery() {
               e.stopPropagation();
               next();
             }}
-            aria-label="Siguiente"
+            aria-label={t.next}
             className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/95 text-2xl font-bold shadow-glow hover:scale-110 transition-all flex items-center justify-center"
           >
             ›

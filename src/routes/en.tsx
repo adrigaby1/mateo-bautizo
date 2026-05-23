@@ -11,28 +11,36 @@ import { FloatingDecor } from "@/components/FloatingDecor";
 import { MusicPlayer, type MusicPlayerHandle } from "@/components/MusicPlayer";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
-export const Route = createFileRoute("/")({
-  component: Index,
+export const Route = createFileRoute("/en")({
+  component: IndexEn,
   head: () => ({
     meta: [
-      { title: "✨ Bautizo y 1er cumpleaños de Mateo · 5 julio 2026" },
+      { title: "✨ Mateo's Baptism & 1st Birthday · July 5th 2026" },
       {
         name: "description",
         content:
-          "Invitación al bautizo y 1er cumpleaños de Mateo el 5 de julio de 2026 en Marbella. Nos haría mucha ilusión que nos acompañes.",
+          "Invitation to Mateo's Baptism and 1st Birthday on July 5th, 2026 in Marbella. We'd love for you to join us.",
       },
-      { property: "og:title", content: "Bautizo y 1er cumpleaños de Mateo ✨" },
+      { property: "og:title", content: "Mateo's Baptism & 1st Birthday ✨" },
       {
         property: "og:description",
         content:
-          "Domingo 5 de julio de 2026 · Iglesia La Encarnación + Simbad Beach · Marbella",
+          "Sunday, July 5th 2026 · La Encarnación Church + Simbad Beach · Marbella",
+      },
+      { name: "twitter:title", content: "Mateo's Baptism & 1st Birthday ✨" },
+      {
+        name: "twitter:description",
+        content: "Sunday, July 5th 2026 · Marbella",
       },
       { property: "og:type", content: "website" },
+    ],
+    links: [
+      { rel: "canonical", href: "https://mateo-bautizo.lovable.app/en" },
     ],
   }),
 });
 
-function Index() {
+function IndexEn() {
   const musicRef = useRef<MusicPlayerHandle>(null);
   const [entered, setEntered] = useState(false);
 
@@ -58,17 +66,17 @@ function Index() {
   return (
     <main className="relative min-h-screen bg-sky-magic overflow-x-hidden">
       <FloatingDecor />
-      <LanguageSwitcher current="es" />
+      <LanguageSwitcher current="en" />
       <div className="relative z-10">
-        <Hero onEnter={handleEnter} entered={entered} />
-        <EventDetails />
-        <Rsvp />
-        <Gallery />
-        <MiniGame />
-        <EmotionalNote />
-        <Farewell />
+        <Hero onEnter={handleEnter} entered={entered} lang="en" />
+        <EventDetails lang="en" />
+        <Rsvp lang="en" />
+        <Gallery lang="en" />
+        <MiniGame lang="en" />
+        <EmotionalNote lang="en" />
+        <Farewell lang="en" />
       </div>
-      <MusicPlayer ref={musicRef} />
+      <MusicPlayer ref={musicRef} lang="en" />
     </main>
   );
 }
