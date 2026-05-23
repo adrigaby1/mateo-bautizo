@@ -4,7 +4,35 @@ import { downloadMateoIcs } from "@/lib/calendar";
 
 const WHATSAPP_PHONE = "34671338704"; // sin "+", formato internacional
 
-export function Rsvp() {
+export function Rsvp({ lang = "es" }: { lang?: "es" | "en" }) {
+  const t = {
+    badge: lang === "en" ? "Confirmation" : "Confirmación",
+    title: lang === "en" ? "Will you join us?" : "¿Nos acompañarás?",
+    sub: lang === "en" ? "Please confirm your attendance" : "Nos haría mucha ilusión celebrarlo contigo",
+    nameLabel: lang === "en" ? "Guest name" : "Tu nombre",
+    namePh: lang === "en" ? "Write your name here…" : "Escribe tu nombre completo",
+    guestsLabel: lang === "en" ? "Number of guests" : "Nº de asistentes",
+    removeGuest: lang === "en" ? "Remove guest" : "Quitar asistente",
+    addGuest: lang === "en" ? "Add guest" : "Añadir asistente",
+    msgLabel: lang === "en" ? "Message for Mateo" : "Mensaje para Mateo",
+    optional: lang === "en" ? "(optional)" : "(opcional)",
+    msgPh: lang === "en" ? "Happy Baptism Mateo!" : "Un mensajito bonito para Mateo…",
+    allergyLabel: lang === "en" ? "Any allergies or food intolerances?" : "¿Alguna alergia o intolerancia alimentaria?",
+    allergyPh: lang === "en" ? "E.g. gluten-free, nut allergy…" : "Ej: sin gluten, alergia a los frutos secos…",
+    err: lang === "en" ? "We couldn't save your reply. Please try again." : "No hemos podido guardar tu respuesta. Inténtalo de nuevo, por favor.",
+    yes: lang === "en" ? "Yes, I'll be there ✨" : "Sí asistiremos ✨",
+    no: lang === "en" ? "Sorry, I can't attend" : "No podremos ir",
+    sending: lang === "en" ? "Sending…" : "Enviando…",
+    thanks: lang === "en" ? "Thank you" : "Gracias",
+    thanksMsg: lang === "en" ? "We're so excited you'll be there. Mateo is waiting for you 💙" : "Nos hace muchísima ilusión que vengas. Mateo te espera 💙",
+    missTitle: lang === "en" ? "We'll miss you" : "¡Te echaremos de menos",
+    missMsg: lang === "en" ? "Thanks for letting us know." : "Gracias por avisarnos.",
+    addCal: lang === "en" ? "Add to calendar 📅" : "Añadir al calendario 📅",
+    waNew: lang === "en" ? "New confirmation" : "Nueva confirmación",
+    waPpl: lang === "en" ? (n: number) => (n === 1 ? "person" : "people") : (n: number) => (n === 1 ? "persona" : "personas"),
+    waWill: lang === "en" ? "will attend with" : "asistirá con",
+    waAllergy: lang === "en" ? "Allergies" : "Alergias",
+  };
   const [name, setName] = useState("");
   const [guests, setGuests] = useState(1);
   const [message, setMessage] = useState("");
@@ -33,10 +61,10 @@ export function Rsvp() {
 
     if (asistira) {
       const parts = [
-        `✨ Nueva confirmación — ${name.trim()} asistirá con ${guests} ${guests === 1 ? "persona" : "personas"}.`,
+        `✨ ${t.waNew} — ${name.trim()} ${t.waWill} ${guests} ${t.waPpl(guests)}.`,
       ];
       if (message.trim()) parts.push(`💬 ${message.trim()}`);
-      if (alergias.trim()) parts.push(`🥜 Alergias: ${alergias.trim()}`);
+      if (alergias.trim()) parts.push(`🥜 ${t.waAllergy}: ${alergias.trim()}`);
       const url = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(parts.join("\n"))}`;
       window.open(url, "_blank", "noopener,noreferrer");
     }
@@ -47,13 +75,13 @@ export function Rsvp() {
       <div className="max-w-xl mx-auto">
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/70 backdrop-blur border border-gold-soft/50 text-xs font-display tracking-widest uppercase text-foreground/65 mb-3">
-            Confirmación
+            {t.badge}
           </div>
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-sea-gradient mb-2">
-            ¿Nos acompañarás?
+            {t.title}
           </h2>
           <p className="text-foreground/65 text-sm sm:text-base">
-            Nos haría mucha ilusión celebrarlo contigo
+            {t.sub}
           </p>
         </div>
 
@@ -61,26 +89,26 @@ export function Rsvp() {
           {submitted === null && (
             <>
               <label className="block font-display font-semibold mb-2 text-foreground/80 text-sm">
-                Tu nombre
+                {t.nameLabel}
               </label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Escribe tu nombre completo"
+                placeholder={t.namePh}
                 maxLength={100}
                 className="w-full px-5 py-3.5 rounded-2xl border border-border bg-white/85 text-base focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/15 mb-4"
               />
 
               <label className="block font-display font-semibold mb-2 text-foreground/80 text-sm">
-                Nº de asistentes
+                {t.guestsLabel}
               </label>
               <div className="flex items-center gap-3 mb-4">
                 <button
                   type="button"
                   onClick={() => setGuests((g) => Math.max(1, g - 1))}
                   className="w-12 h-12 rounded-full bg-white border border-border font-display font-bold text-xl shadow-soft active:scale-95 transition"
-                  aria-label="Quitar asistente"
+                  aria-label={t.removeGuest}
                 >
                   −
                 </button>
@@ -91,31 +119,31 @@ export function Rsvp() {
                   type="button"
                   onClick={() => setGuests((g) => Math.min(20, g + 1))}
                   className="w-12 h-12 rounded-full bg-white border border-border font-display font-bold text-xl shadow-soft active:scale-95 transition"
-                  aria-label="Añadir asistente"
+                  aria-label={t.addGuest}
                 >
                   +
                 </button>
               </div>
 
               <label className="block font-display font-semibold mb-2 text-foreground/80 text-sm">
-                Mensaje para Mateo <span className="text-xs font-normal text-foreground/50">(opcional)</span>
+                {t.msgLabel} <span className="text-xs font-normal text-foreground/50">{t.optional}</span>
               </label>
               <textarea
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder="Un mensajito bonito para Mateo…"
+                placeholder={t.msgPh}
                 maxLength={500}
                 rows={3}
                 className="w-full px-5 py-3 rounded-2xl border border-border bg-white/85 text-base focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/15 mb-5 resize-none"
               />
 
               <label className="block font-display font-semibold mb-2 text-foreground/80 text-sm">
-                ¿Alguna alergia o intolerancia alimentaria? <span className="text-xs font-normal text-foreground/50">(opcional)</span>
+                {t.allergyLabel} <span className="text-xs font-normal text-foreground/50">{t.optional}</span>
               </label>
               <textarea
                 value={alergias}
                 onChange={(e) => setAlergias(e.target.value)}
-                placeholder="Ej: sin gluten, alergia a los frutos secos…"
+                placeholder={t.allergyPh}
                 maxLength={300}
                 rows={2}
                 className="w-full px-5 py-3 rounded-2xl border border-border bg-white/85 text-base focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/15 mb-5 resize-none"
@@ -123,7 +151,7 @@ export function Rsvp() {
 
               {error && (
                 <div className="mb-4 p-3 rounded-xl bg-red-100 text-red-700 text-sm text-center">
-                  {error}
+                  {t.err}
                 </div>
               )}
 
@@ -133,14 +161,14 @@ export function Rsvp() {
                   disabled={!name.trim() || loading}
                   className="px-6 py-4 bg-gradient-sea text-white font-display font-bold rounded-2xl shadow-soft hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-40 disabled:hover:scale-100"
                 >
-                  {loading ? "Enviando…" : "Sí asistiremos ✨"}
+                  {loading ? t.sending : t.yes}
                 </button>
                 <button
                   onClick={() => submit(false)}
                   disabled={!name.trim() || loading}
                   className="px-6 py-4 bg-white border border-border text-foreground font-display font-bold rounded-2xl shadow-soft hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-40 disabled:hover:scale-100"
                 >
-                  No podremos ir
+                  {t.no}
                 </button>
               </div>
             </>
@@ -150,17 +178,17 @@ export function Rsvp() {
             <div className="text-center py-6 animate-pop-in">
               <div className="text-5xl mb-3">🌊✨</div>
               <h3 className="font-display text-2xl font-bold text-sea-gradient mb-2">
-                ¡Gracias, {name}!
+                {lang === "en" ? `Thank you, ${name}!` : `¡Gracias, ${name}!`}
               </h3>
               <p className="text-foreground/70 mb-6">
-                Nos hace muchísima ilusión que vengas. Mateo te espera 💙
+                {t.thanksMsg}
               </p>
               <button
                 onClick={downloadMateoIcs}
                 type="button"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-gradient-sea text-white font-display font-semibold rounded-full shadow-soft hover:scale-[1.02] active:scale-95 transition-all"
               >
-                Añadir al calendario 📅
+                {t.addCal}
               </button>
             </div>
           )}
@@ -169,9 +197,9 @@ export function Rsvp() {
             <div className="text-center py-6 animate-pop-in">
               <div className="text-5xl mb-3">💙</div>
               <h3 className="font-display text-2xl font-bold text-sea-gradient mb-2">
-                ¡Te echaremos de menos, {name}!
+                {lang === "en" ? `We'll miss you, ${name}!` : `¡Te echaremos de menos, ${name}!`}
               </h3>
-              <p className="text-foreground/70">Gracias por avisarnos.</p>
+              <p className="text-foreground/70">{t.missMsg}</p>
             </div>
           )}
         </div>
