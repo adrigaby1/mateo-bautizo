@@ -1,6 +1,19 @@
 import mateoAvatar from "@/assets/mateo-avatar.png";
 
-export function Farewell() {
+export function Farewell({ lang = "es" }: { lang?: "es" | "en" }) {
+  const t = {
+    title: lang === "en"
+      ? "Thank you for being part of Mateo's special day 🌊"
+      : "Mateo te espera frente al mar 🌊",
+    body: lang === "en"
+      ? "With love from Mateo and family 🤍"
+      : "Será un día luminoso, lleno de alegría y de cariño. Gracias por formar parte.",
+    location: lang === "en" ? "View location 📍" : "Ver ubicación 📍",
+    confirm: lang === "en" ? "Confirm attendance ✨" : "Confirmar asistencia ✨",
+    footer: lang === "en"
+      ? "Mateo · Baptism + 1st birthday · Marbella 2026"
+      : null,
+  };
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -17,10 +30,10 @@ export function Farewell() {
           style={{ filter: "drop-shadow(0 22px 36px rgba(45,86,113,0.20)) drop-shadow(0 6px 12px rgba(221,190,135,0.25))" }}
         />
         <h2 className="font-display text-3xl sm:text-4xl font-semibold text-sea-muted mb-4 leading-tight">
-          Mateo te espera frente al mar 🌊
+          {t.title}
         </h2>
         <p className="text-foreground/65 mb-8 max-w-md mx-auto">
-          Será un día luminoso, lleno de alegría y de cariño. Gracias por formar parte.
+          {t.body}
         </p>
         <div className="text-3xl mb-8 flex items-center justify-center gap-3">
           <span className="animate-twinkle inline-block">✨</span>
@@ -33,18 +46,22 @@ export function Farewell() {
             onClick={() => scrollTo("ubicacion")}
             className="w-full sm:w-auto px-8 py-4 bg-white text-foreground text-base font-display font-bold rounded-full shadow-card hover:scale-105 active:scale-95 transition-all border border-gold-soft/60"
           >
-            Ver ubicación 📍
+            {t.location}
           </button>
           <button
             onClick={() => scrollTo("rsvp")}
             className="w-full sm:w-auto px-8 py-4 bg-gradient-sea text-white text-base font-display font-bold rounded-full shadow-glow hover:scale-105 active:scale-95 transition-all"
           >
-            Confirmar asistencia ✨
+            {t.confirm}
           </button>
         </div>
 
         <div className="mt-12 text-sm text-foreground/50 font-display">
-          Mateo · Bautizo + 1<sup>er</sup> cumpleaños · Marbella 2026
+          {lang === "en" ? (
+            <>Mateo · Baptism + 1<sup>st</sup> birthday · Marbella 2026</>
+          ) : (
+            <>Mateo · Bautizo + 1<sup>er</sup> cumpleaños · Marbella 2026</>
+          )}
         </div>
       </div>
     </section>
