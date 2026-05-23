@@ -15,23 +15,27 @@ export const Route = createFileRoute("/en")({
   component: IndexEn,
   head: () => ({
     meta: [
-      { title: "✨ Mateo's Baptism & 1st Birthday · July 5th 2026" },
+      { title: "Mateo Baptism & 1st Birthday · Marbella" },
       {
         name: "description",
         content:
-          "Invitation to Mateo's Baptism and 1st Birthday on July 5th, 2026 in Marbella. We'd love for you to join us.",
+          "Join us to celebrate Mateo's Baptism and 1st Birthday in Marbella on July 5th 2026 🌊",
       },
-      { property: "og:title", content: "Mateo's Baptism & 1st Birthday ✨" },
+      { property: "og:title", content: "Mateo invites you to his special day" },
       {
         property: "og:description",
-        content:
-          "Sunday, July 5th 2026 · La Encarnación Church + Simbad Beach · Marbella",
+        content: "Baptism & 1st Birthday · Marbella · July 5th 2026",
       },
-      { name: "twitter:title", content: "Mateo's Baptism & 1st Birthday ✨" },
+      { name: "twitter:title", content: "Mateo invites you to his special day" },
       {
         name: "twitter:description",
-        content: "Sunday, July 5th 2026 · Marbella",
+        content: "Baptism & 1st Birthday · Marbella · July 5th 2026",
       },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: "https://mateo-bautizo.lovable.app/og-en.jpg" },
+      { name: "twitter:image", content: "https://mateo-bautizo.lovable.app/og-en.jpg" },
+      { property: "og:url", content: "https://mateo-bautizo.lovable.app/en" },
+      { property: "og:locale", content: "en_US" },
       { property: "og:type", content: "website" },
     ],
     links: [

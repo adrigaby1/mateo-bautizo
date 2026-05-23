@@ -27,7 +27,28 @@ export const Route = createFileRoute("/")({
         content:
           "Domingo 5 de julio de 2026 · Iglesia La Encarnación + Simbad Beach · Marbella",
       },
+      { name: "twitter:title", content: "Bautizo y 1er cumpleaños de Mateo ✨" },
+      {
+        name: "twitter:description",
+        content:
+          "Domingo 5 de julio de 2026 · Iglesia La Encarnación + Simbad Beach · Marbella",
+      },
+      { name: "twitter:card", content: "summary_large_image" },
+      {
+        property: "og:image",
+        content:
+          "https://storage.googleapis.com/gpt-engineer-file-uploads/yNS6AmhGPHT88PDgk5e37xao27q1/social-images/social-1779547075239-InShot_20260523_163644596.webp",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://storage.googleapis.com/gpt-engineer-file-uploads/yNS6AmhGPHT88PDgk5e37xao27q1/social-images/social-1779547075239-InShot_20260523_163644596.webp",
+      },
+      { property: "og:url", content: "https://mateo-bautizo.lovable.app/" },
       { property: "og:type", content: "website" },
+    ],
+    links: [
+      { rel: "canonical", href: "https://mateo-bautizo.lovable.app/" },
     ],
   }),
 });
