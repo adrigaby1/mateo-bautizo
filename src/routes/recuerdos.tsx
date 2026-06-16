@@ -13,6 +13,7 @@ import { FloatingDecor } from "@/components/FloatingDecor";
 import { MusicPlayer, type MusicPlayerHandle } from "@/components/MusicPlayer";
 import { PhotoGallery } from "@/components/recuerdos/PhotoGallery";
 import { VideoGallery } from "@/components/recuerdos/VideoGallery";
+import mateoAvatar from "@/assets/mateo-avatar.png.asset.json";
 
 export const Route = createFileRoute("/recuerdos")({
   component: Recuerdos,
@@ -111,8 +112,22 @@ function Active() {
           <div aria-hidden className="pointer-events-none absolute -top-10 -left-10 w-44 h-44 rounded-full bg-sky-med/40 blur-3xl" />
           <div aria-hidden className="pointer-events-none absolute -bottom-12 -right-10 w-52 h-52 rounded-full bg-gold-soft/30 blur-3xl" />
 
-          <div className="relative mx-auto mb-5 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-cream to-sand border-2 border-white shadow-glow flex items-center justify-center text-4xl sm:text-5xl">
-            🐚
+          <div className="relative mx-auto mb-6 flex items-center justify-center reveal-up">
+            <div
+              className="relative rounded-full overflow-hidden bg-cream"
+              style={{
+                width: "clamp(180px, 28vw, 300px)",
+                height: "clamp(180px, 28vw, 300px)",
+                border: "4px solid #EADCC6",
+                boxShadow: "0 18px 48px rgba(45, 86, 113, 0.18), 0 4px 14px rgba(0,0,0,0.08)",
+              }}
+            >
+              <img
+                src={mateoAvatar.url}
+                alt="Avatar de Mateo"
+                className="w-full h-full object-contain"
+              />
+            </div>
           </div>
 
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/70 border border-gold-soft/40 text-[10px] font-display tracking-[0.25em] uppercase text-foreground/60 mb-4">
