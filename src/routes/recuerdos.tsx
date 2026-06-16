@@ -125,7 +125,7 @@ function Active() {
               <img
                 src={mateoAvatar.url}
                 alt="Avatar de Mateo"
-                className="w-full h-full object-contain animate-[fadeIn_900ms_ease-out_both]"
+                className="w-full h-full object-contain"
               />
             </div>
           </div>
