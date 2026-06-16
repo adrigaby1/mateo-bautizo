@@ -95,50 +95,130 @@ function Active() {
   return (
     <main className="relative min-h-screen bg-sky-magic overflow-x-hidden">
       <FloatingDecor />
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-8 py-16 sm:py-20">
-        <header className="text-center mb-12 reveal-up">
+      <div className="relative z-10 mx-auto w-full max-w-[1100px] px-4 sm:px-8 py-12 sm:py-16">
+        {/* Back link */}
+        <div className="mb-6 reveal-up">
           <Link
             to="/"
-            className="inline-flex items-center gap-1.5 text-xs font-display tracking-[0.18em] uppercase text-foreground/55 mb-4 hover:text-sea-muted transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-display tracking-[0.18em] uppercase text-foreground/55 hover:text-sea-muted transition-colors"
           >
             ← Invitación
           </Link>
-          <h1 className="font-display text-3xl sm:text-4xl font-semibold text-sea-muted mb-3">
-            Recuerdos del día especial de Mateo 📸🎥
+        </div>
+
+        {/* HERO */}
+        <header className="relative overflow-hidden rounded-[2rem] border border-white/70 bg-white/55 backdrop-blur-xl shadow-soft p-8 sm:p-12 text-center reveal-up">
+          <div aria-hidden className="pointer-events-none absolute -top-10 -left-10 w-44 h-44 rounded-full bg-sky-med/40 blur-3xl" />
+          <div aria-hidden className="pointer-events-none absolute -bottom-12 -right-10 w-52 h-52 rounded-full bg-gold-soft/30 blur-3xl" />
+
+          <div className="relative mx-auto mb-5 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-cream to-sand border-2 border-white shadow-glow flex items-center justify-center text-4xl sm:text-5xl">
+            🐚
+          </div>
+
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/70 border border-gold-soft/40 text-[10px] font-display tracking-[0.25em] uppercase text-foreground/60 mb-4">
+            <span>🌊</span> Álbum familiar <span>✨</span>
+          </div>
+
+          <h1 className="font-display text-3xl sm:text-5xl font-semibold text-sea-muted leading-tight mb-4">
+            Recuerdos del día especial<br className="hidden sm:block" /> de Mateo 📸🎥
           </h1>
-          <p className="text-foreground/65 max-w-2xl mx-auto mb-3">
-            Gracias por acompañarnos en un momento tan bonito. Aquí podréis ver y
-            descargar las fotos y vídeos del Bautizo y 1er cumpleaños de Mateo 🤍
+
+          <p className="text-foreground/70 max-w-2xl mx-auto mb-5 text-sm sm:text-base leading-relaxed">
+            Gracias por acompañarnos en un día tan bonito. Aquí podréis revivir
+            y descargar los momentos más especiales del Bautizo y 1er cumpleaños
+            de Mateo 🤍
           </p>
-          <p className="text-xs text-foreground/45 italic">
+
+          <div className="relative max-w-xl mx-auto">
+            <div className="rounded-2xl bg-gradient-to-r from-sand/60 via-cream to-sky-med/50 border border-white/80 px-5 py-3 shadow-soft">
+              <p className="font-display italic text-sea-muted text-sm sm:text-base">
+                “Un día lleno de cariño, familia y recuerdos para siempre.”
+              </p>
+            </div>
+          </div>
+
+          <p className="mt-6 text-[11px] text-foreground/45 italic">
             Galería compartida solo con las personas que tienen este enlace.
           </p>
         </header>
 
         {loading ? (
-          <p className="text-center text-foreground/55 py-16">Cargando recuerdos…</p>
+          <p className="text-center text-foreground/55 py-20">Cargando recuerdos…</p>
         ) : (
           <>
-            <section className="mb-16">
-              <div className="text-center mb-6">
-                <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/60 backdrop-blur border border-gold-soft/40 text-[11px] font-display tracking-[0.22em] uppercase text-foreground/55">
-                  Fotos
+            {/* FOTOS */}
+            <section className="mt-16 sm:mt-20 reveal-up">
+              <SectionHeader
+                kicker="Fotos"
+                title="Fotos del recuerdo 📸"
+                subtitle="Pequeños momentos llenos de emoción"
+              />
+              {photos.length === 0 ? (
+                <EmptyCard text="Muy pronto añadiremos más fotos de este día tan especial." />
+              ) : (
+                <div className={photos.length < 4 ? "max-w-2xl mx-auto" : ""}>
+                  <PhotoGallery photos={photos} />
                 </div>
-              </div>
-              <PhotoGallery photos={photos} />
+              )}
             </section>
 
-            <section>
-              <div className="text-center mb-6">
-                <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/60 backdrop-blur border border-gold-soft/40 text-[11px] font-display tracking-[0.22em] uppercase text-foreground/55">
-                  Vídeos
+            <Divider />
+
+            {/* VÍDEOS */}
+            <section className="reveal-up">
+              <SectionHeader
+                kicker="Vídeos"
+                title="Vídeos del día 🎥"
+                subtitle="Momentos para volver a vivir"
+              />
+              {videos.length === 0 ? (
+                <EmptyCard text="Muy pronto añadiremos los vídeos de este día tan especial." />
+              ) : (
+                <div className={videos.length < 3 ? "max-w-3xl mx-auto" : ""}>
+                  <VideoGallery videos={videos} />
                 </div>
+              )}
+            </section>
+
+            <Divider />
+
+            {/* CIERRE EMOTIVO */}
+            <section className="reveal-up">
+              <div className="relative overflow-hidden rounded-[2rem] border border-white/70 bg-white/55 backdrop-blur-xl shadow-soft p-8 sm:p-12 text-center">
+                <div aria-hidden className="pointer-events-none absolute -top-10 right-0 w-40 h-40 rounded-full bg-olive/25 blur-3xl" />
+                <div className="text-4xl mb-3">🤍</div>
+                <h2 className="font-display text-2xl sm:text-3xl font-semibold text-sea-muted mb-3">
+                  Gracias por formar parte de este recuerdo
+                </h2>
+                <p className="text-foreground/70 max-w-xl mx-auto mb-7 text-sm sm:text-base leading-relaxed">
+                  Nos hace mucha ilusión compartir estas fotos y vídeos con
+                  vosotros. Gracias por acompañar a Mateo en un día tan especial
+                  para nuestra familia.
+                </p>
+                <Link
+                  to="/"
+                  className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-sea text-white font-display font-semibold shadow-glow hover:scale-105 transition-transform"
+                >
+                  ← Volver a la invitación
+                </Link>
               </div>
-              <VideoGallery videos={videos} />
             </section>
           </>
         )}
       </div>
+
+      {/* Onda decorativa inferior */}
+      <svg
+        aria-hidden
+        className="relative z-0 w-full h-16 sm:h-24 text-sky-med/50 mt-4"
+        viewBox="0 0 1200 120"
+        preserveAspectRatio="none"
+      >
+        <path
+          d="M0,40 C200,100 400,0 600,40 C800,80 1000,20 1200,60 L1200,120 L0,120 Z"
+          fill="currentColor"
+        />
+      </svg>
       <MusicPlayer ref={musicRef} />
     </main>
   );
@@ -146,4 +226,45 @@ function Active() {
 
 function Recuerdos() {
   return RECUERDOS_ENABLED ? <Active /> : <Disabled />;
+}
+
+function SectionHeader({
+  kicker,
+  title,
+  subtitle,
+}: {
+  kicker: string;
+  title: string;
+  subtitle: string;
+}) {
+  return (
+    <div className="text-center mb-8">
+      <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/70 backdrop-blur border border-gold-soft/40 text-[10px] font-display tracking-[0.25em] uppercase text-foreground/55 mb-3">
+        {kicker}
+      </div>
+      <h2 className="font-display text-2xl sm:text-3xl font-semibold text-sea-muted">
+        {title}
+      </h2>
+      <p className="text-foreground/60 text-sm sm:text-base mt-2">{subtitle}</p>
+    </div>
+  );
+}
+
+function Divider() {
+  return (
+    <div className="my-14 sm:my-20 flex items-center justify-center gap-4" aria-hidden>
+      <span className="h-px w-20 sm:w-32 bg-gradient-to-r from-transparent to-gold-soft/70" />
+      <span className="text-gold-soft text-lg">✦</span>
+      <span className="h-px w-20 sm:w-32 bg-gradient-to-l from-transparent to-gold-soft/70" />
+    </div>
+  );
+}
+
+function EmptyCard({ text }: { text: string }) {
+  return (
+    <div className="max-w-md mx-auto text-center rounded-3xl border border-white/70 bg-white/55 backdrop-blur-md shadow-soft px-6 py-10">
+      <div className="text-3xl mb-2">🌿</div>
+      <p className="text-foreground/65 italic text-sm">{text}</p>
+    </div>
+  );
 }
