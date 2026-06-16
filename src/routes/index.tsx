@@ -10,6 +10,8 @@ import { EmotionalNote } from "@/components/EmotionalNote";
 import { FloatingDecor } from "@/components/FloatingDecor";
 import { MusicPlayer, type MusicPlayerHandle } from "@/components/MusicPlayer";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { Link } from "@tanstack/react-router";
+import { RECUERDOS_ENABLED } from "@/config/recuerdos";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -87,6 +89,16 @@ function Index() {
         <Gallery />
         <MiniGame />
         <EmotionalNote />
+        {RECUERDOS_ENABLED && (
+          <div className="flex justify-center px-6 pb-4">
+            <Link
+              to="/recuerdos"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-sea text-white font-display font-semibold shadow-glow hover:scale-105 transition-transform"
+            >
+              Ver recuerdos 📸
+            </Link>
+          </div>
+        )}
         <Farewell />
       </div>
       <MusicPlayer ref={musicRef} />
