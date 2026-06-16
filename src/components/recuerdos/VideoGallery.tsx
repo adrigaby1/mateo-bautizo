@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { Pager } from "./PhotoGallery";
+import { Lightbox } from "./Lightbox";
+import { downloadFile } from "@/lib/download";
 
 type Video = { name: string; url: string };
 
@@ -44,21 +46,6 @@ export function VideoGallery({ videos }: { videos: Video[] }) {
     [videos.length]
   );
 
-  useEffect(() => {
-    if (openIdx === null) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
-      if (e.key === "ArrowLeft") prev();
-      if (e.key === "ArrowRight") next();
-    };
-    window.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-    };
-  }, [openIdx, close, prev, next]);
-
   if (!videos.length) {
     return (
       <p className="text-center text-foreground/55 py-12">
@@ -95,15 +82,13 @@ export function VideoGallery({ videos }: { videos: Video[] }) {
                   ▶
                 </span>
               </button>
-              <a
-                href={v.url}
-                download={v.name}
-                onClick={(e) => e.stopPropagation()}
+              <button
+                onClick={(e) => { e.stopPropagation(); downloadFile(v.url, v.name); }}
                 aria-label="Descargar vídeo"
-                className="absolute bottom-2 right-2 w-9 h-9 rounded-full bg-white/95 flex items-center justify-center text-sm shadow-soft hover:scale-110 transition-transform"
+                className="absolute bottom-2 right-2 w-10 h-10 rounded-full bg-white/95 flex items-center justify-center text-sm shadow-soft hover:scale-110 transition-transform z-10"
               >
                 ⬇
-              </a>
+              </button>
             </div>
           );
         })}
@@ -112,48 +97,35 @@ export function VideoGallery({ videos }: { videos: Video[] }) {
       <Pager page={page} totalPages={totalPages} onGo={goto} />
 
       {openIdx !== null && (
-        <div
-          className="fixed inset-0 z-[200] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
-          onClick={close}
+        <Lightbox
+          open
+          onClose={close}
+          onPrev={prev}
+          onNext={next}
+          url={videos[openIdx].url}
+          filename={videos[openIdx].name}
+          index={openIdx}
+          total={videos.length}
+          label="Vídeo"
         >
-          <button
-            onClick={(e) => { e.stopPropagation(); close(); }}
-            aria-label="Cerrar"
-            className="absolute top-4 right-4 w-11 h-11 rounded-full bg-white/95 text-xl font-bold shadow-glow"
-          >✕</button>
-          <button
-            onClick={(e) => { e.stopPropagation(); prev(); }}
-            aria-label="Anterior"
-            className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/95 text-2xl font-bold shadow-glow"
-          >‹</button>
           <video
             key={videos[openIdx].url}
             src={videos[openIdx].url}
             controls
             autoPlay
             playsInline
-            className="max-w-full max-h-[82vh] rounded-2xl shadow-2xl bg-black"
-            onClick={(e) => e.stopPropagation()}
+            style={{
+              maxWidth: "min(92vw, 900px)",
+              maxHeight: "78vh",
+              width: "auto",
+              height: "auto",
+              objectFit: "contain",
+              background: "#000",
+              borderRadius: 20,
+              display: "block",
+            }}
           />
-          <button
-            onClick={(e) => { e.stopPropagation(); next(); }}
-            aria-label="Siguiente"
-            className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/95 text-2xl font-bold shadow-glow"
-          >›</button>
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-3">
-            <span className="bg-white/95 px-4 py-1.5 rounded-full font-display font-semibold text-sm shadow-glow">
-              Vídeo {openIdx + 1} de {videos.length}
-            </span>
-            <a
-              href={videos[openIdx].url}
-              download={videos[openIdx].name}
-              onClick={(e) => e.stopPropagation()}
-              className="bg-sea text-white px-4 py-1.5 rounded-full font-display font-semibold text-sm shadow-glow hover:scale-105 transition-transform"
-            >
-              ⬇ Descargar
-            </a>
-          </div>
-        </div>
+        </Lightbox>
       )}
     </div>
   );
