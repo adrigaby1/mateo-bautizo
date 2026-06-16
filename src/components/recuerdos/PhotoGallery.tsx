@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
+import { Lightbox } from "./Lightbox";
 
 type Photo = { name: string; url: string };
 
@@ -50,21 +51,6 @@ export function PhotoGallery({ photos }: { photos: Photo[] }) {
     [photos.length]
   );
 
-  useEffect(() => {
-    if (openIdx === null) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
-      if (e.key === "ArrowLeft") prev();
-      if (e.key === "ArrowRight") next();
-    };
-    window.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-    };
-  }, [openIdx, close, prev, next]);
-
   if (!photos.length) {
     return (
       <p className="text-center text-foreground/55 py-12">
@@ -99,45 +85,31 @@ export function PhotoGallery({ photos }: { photos: Photo[] }) {
       <Pager page={page} totalPages={totalPages} onGo={goto} />
 
       {openIdx !== null && (
-        <div
-          className="fixed inset-0 z-[200] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
-          onClick={close}
+        <Lightbox
+          open
+          onClose={close}
+          onPrev={prev}
+          onNext={next}
+          url={photos[openIdx].url}
+          filename={photos[openIdx].name}
+          index={openIdx}
+          total={photos.length}
+          label="Foto"
         >
-          <button
-            onClick={(e) => { e.stopPropagation(); close(); }}
-            aria-label="Cerrar"
-            className="absolute top-4 right-4 w-11 h-11 rounded-full bg-white/95 text-xl font-bold shadow-glow"
-          >✕</button>
-          <button
-            onClick={(e) => { e.stopPropagation(); prev(); }}
-            aria-label="Anterior"
-            className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/95 text-2xl font-bold shadow-glow"
-          >‹</button>
           <img
             src={photos[openIdx].url}
             alt={`Foto ${openIdx + 1}`}
-            className="max-w-full max-h-[82vh] object-contain rounded-2xl shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
+            style={{
+              maxWidth: "min(92vw, 900px)",
+              maxHeight: "78vh",
+              width: "auto",
+              height: "auto",
+              objectFit: "contain",
+              objectPosition: "center",
+              display: "block",
+            }}
           />
-          <button
-            onClick={(e) => { e.stopPropagation(); next(); }}
-            aria-label="Siguiente"
-            className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/95 text-2xl font-bold shadow-glow"
-          >›</button>
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-3">
-            <span className="bg-white/95 px-4 py-1.5 rounded-full font-display font-semibold text-sm shadow-glow">
-              Foto {openIdx + 1} de {photos.length}
-            </span>
-            <a
-              href={photos[openIdx].url}
-              download={photos[openIdx].name}
-              onClick={(e) => e.stopPropagation()}
-              className="bg-sea text-white px-4 py-1.5 rounded-full font-display font-semibold text-sm shadow-glow hover:scale-105 transition-transform"
-            >
-              ⬇ Descargar
-            </a>
-          </div>
-        </div>
+        </Lightbox>
       )}
     </div>
   );
