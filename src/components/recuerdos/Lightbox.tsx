@@ -53,6 +53,7 @@ export function Lightbox({
         alignItems: "center",
         justifyContent: "center",
         padding: "16px",
+        overflowY: "auto",
       }}
     >
       {/* Prev arrow */}
@@ -79,7 +80,7 @@ export function Lightbox({
         className="relative flex flex-col items-center"
         style={{
           maxWidth: "min(92vw, 900px)",
-          maxHeight: "86vh",
+          margin: "auto",
         }}
       >
         {/* Close button */}
@@ -97,7 +98,7 @@ export function Lightbox({
             borderRadius: 24,
             boxShadow: "0 24px 80px rgba(0,0,0,0.35)",
             maxWidth: "min(92vw, 900px)",
-            maxHeight: "78vh",
+            maxHeight: "70vh",
           }}
         >
           {children}
