@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 import { downloadFile } from "@/lib/download";
 
 type Props = {
@@ -37,7 +38,9 @@ export function Lightbox({
 
   const stop = (e: React.MouseEvent) => e.stopPropagation();
 
-  return (
+  if (typeof document === "undefined") return null;
+
+  return createPortal(
     <div
       role="dialog"
       aria-modal="true"
@@ -53,6 +56,7 @@ export function Lightbox({
         alignItems: "center",
         justifyContent: "center",
         padding: "16px",
+        overflowY: "auto",
       }}
     >
       {/* Prev arrow */}
@@ -79,7 +83,7 @@ export function Lightbox({
         className="relative flex flex-col items-center"
         style={{
           maxWidth: "min(92vw, 900px)",
-          maxHeight: "86vh",
+          margin: "auto",
         }}
       >
         {/* Close button */}
@@ -97,7 +101,7 @@ export function Lightbox({
             borderRadius: 24,
             boxShadow: "0 24px 80px rgba(0,0,0,0.35)",
             maxWidth: "min(92vw, 900px)",
-            maxHeight: "78vh",
+            maxHeight: "70vh",
           }}
         >
           {children}
@@ -119,6 +123,7 @@ export function Lightbox({
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

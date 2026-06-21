@@ -116,7 +116,7 @@ export function VideoGallery({ videos }: { videos: Video[] }) {
             playsInline
             style={{
               maxWidth: "min(92vw, 900px)",
-              maxHeight: "78vh",
+              maxHeight: "70vh",
               width: "auto",
               height: "auto",
               objectFit: "contain",
