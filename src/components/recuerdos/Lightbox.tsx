@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 import { downloadFile } from "@/lib/download";
 
 type Props = {
@@ -37,7 +38,9 @@ export function Lightbox({
 
   const stop = (e: React.MouseEvent) => e.stopPropagation();
 
-  return (
+  if (typeof document === "undefined") return null;
+
+  return createPortal(
     <div
       role="dialog"
       aria-modal="true"
@@ -120,6 +123,7 @@ export function Lightbox({
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
