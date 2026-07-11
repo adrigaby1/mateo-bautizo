@@ -14,7 +14,7 @@ import { FloatingDecor } from "@/components/FloatingDecor";
 import { MusicPlayer, type MusicPlayerHandle } from "@/components/MusicPlayer";
 import { PhotoGallery } from "@/components/recuerdos/PhotoGallery";
 import { VideoGallery } from "@/components/recuerdos/VideoGallery";
-import mateoAvatar from "@/assets/mateo-avatar.png.asset.json";
+import mateoAvatar from "@/assets/mateo-recuerdos-avatar.png.asset.json";
 
 export const Route = createFileRoute("/recuerdos")({
   component: Recuerdos,
@@ -116,26 +116,39 @@ function Active() {
         </div>
 
         {/* HERO */}
-        <header className="relative overflow-hidden rounded-[2rem] border border-white/70 bg-white/55 backdrop-blur-xl shadow-soft p-8 sm:p-12 text-center reveal-up">
+        <header className="relative overflow-hidden rounded-[2rem] border border-white/70 bg-white/55 backdrop-blur-xl shadow-soft px-6 sm:px-12 pt-8 sm:pt-10 pb-10 sm:pb-12 text-center reveal-up">
           <div aria-hidden className="pointer-events-none absolute -top-10 -left-10 w-44 h-44 rounded-full bg-sky-med/40 blur-3xl" />
           <div aria-hidden className="pointer-events-none absolute -bottom-12 -right-10 w-52 h-52 rounded-full bg-gold-soft/30 blur-3xl" />
 
-          <div className="relative mx-auto mb-6 flex items-center justify-center reveal-up">
+          {/* Floating avatar with warm halo — matches invitation Hero */}
+          <div className="relative mx-auto mb-5 flex items-center justify-center">
             <div
-              className="relative rounded-full overflow-hidden bg-cream"
+              aria-hidden
+              className="absolute w-[28rem] h-[28rem] sm:w-[36rem] sm:h-[36rem] rounded-full opacity-80 blur-3xl pointer-events-none animate-halo-pulse"
               style={{
-                width: "clamp(180px, 28vw, 300px)",
-                height: "clamp(180px, 28vw, 300px)",
-                border: "4px solid #EADCC6",
-                boxShadow: "0 18px 48px rgba(45, 86, 113, 0.18), 0 4px 14px rgba(0,0,0,0.08)",
+                background:
+                  "radial-gradient(circle at 50% 45%, oklch(0.95 0.04 80 / 0.85) 0%, oklch(0.92 0.035 230 / 0.55) 40%, transparent 72%)",
               }}
-            >
-              <img
-                src={mateoAvatar.url}
-                alt="Avatar de Mateo"
-                className="w-full h-full object-contain"
-              />
-            </div>
+            />
+            <div
+              aria-hidden
+              className="absolute w-[24rem] h-[24rem] sm:w-[32rem] sm:h-[32rem] rounded-full bg-gold-soft opacity-30 blur-[110px] pointer-events-none"
+            />
+            <img
+              src={mateoAvatar.url}
+              alt="Avatar de Mateo"
+              className="relative object-contain rounded-full animate-soft-float"
+              style={{
+                width: "clamp(160px, 22vw, 240px)",
+                height: "clamp(160px, 22vw, 240px)",
+                WebkitMaskImage:
+                  "radial-gradient(circle at 50% 50%, #000 58%, rgba(0,0,0,0.85) 66%, rgba(0,0,0,0) 78%)",
+                maskImage:
+                  "radial-gradient(circle at 50% 50%, #000 58%, rgba(0,0,0,0.85) 66%, rgba(0,0,0,0) 78%)",
+                filter:
+                  "drop-shadow(0 24px 36px rgba(45,86,113,0.18)) drop-shadow(0 6px 12px rgba(221,190,135,0.28))",
+              }}
+            />
           </div>
 
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/70 border border-gold-soft/40 text-[10px] font-display tracking-[0.25em] uppercase text-foreground/60 mb-4">

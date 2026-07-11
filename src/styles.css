@@ -318,6 +318,10 @@
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-8px); }
 }
+@keyframes halo-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.75; }
+  50% { transform: scale(1.06); opacity: 0.9; }
+}
 
 .animate-float { animation: float 4s ease-in-out infinite; }
 .animate-float-slow { animation: float-slow 6s ease-in-out infinite; }
@@ -329,6 +333,7 @@
 .animate-wave { animation: wave-move 6s ease-in-out infinite; }
 .animate-bubble { animation: bubble-up linear forwards; }
 .animate-soft-float { animation: soft-float 6s ease-in-out infinite; }
+.animate-halo-pulse { animation: halo-pulse 7s ease-in-out infinite; }
 .reveal-up { opacity: 0; animation: fade-up 0.9s ease-out forwards; }
 .reveal-up.delay-1 { animation-delay: 0.12s; }
 .reveal-up.delay-2 { animation-delay: 0.24s; }
