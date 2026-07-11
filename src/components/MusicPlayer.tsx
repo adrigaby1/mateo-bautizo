@@ -4,7 +4,7 @@ export type MusicPlayerHandle = {
   tryPlay: () => void;
 };
 
-export const MusicPlayer = forwardRef<MusicPlayerHandle, { lang?: "es" | "en" }>(function MusicPlayer({ lang = "es" }, ref) {
+export const MusicPlayer = forwardRef<MusicPlayerHandle, { lang?: "es" | "en"; visible?: boolean }>(function MusicPlayer({ lang = "es", visible = true }, ref) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
   const labels = lang === "en"
