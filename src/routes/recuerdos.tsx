@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
+
 import {
   RECUERDOS_ENABLED,
   RECUERDOS_BUCKET,
@@ -77,6 +78,13 @@ function Active() {
   const [videos, setVideos] = useState<Asset[]>([]);
   const [loading, setLoading] = useState(true);
   const musicRef = useRef<MusicPlayerHandle>(null);
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      musicRef.current?.tryPlay();
+    }, 600);
+    return () => clearTimeout(t);
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
