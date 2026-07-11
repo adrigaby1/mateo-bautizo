@@ -114,7 +114,8 @@ function Active() {
   return (
     <main className="relative min-h-screen bg-sky-magic overflow-x-hidden">
       <FloatingDecor />
-      <div className="relative z-10 mx-auto w-full max-w-[1100px] px-4 sm:px-8 py-12 sm:py-16">
+      <RecuerdosWelcome onEnter={handleEnter} entered={entered} />
+      <div className={`relative z-10 mx-auto w-full max-w-[1100px] px-4 sm:px-8 py-12 sm:py-16 transition-opacity duration-700 ${entered ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
         {/* Back link */}
         <div className="mb-6 reveal-up">
           <Link
