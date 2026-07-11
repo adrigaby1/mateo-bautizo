@@ -266,7 +266,7 @@ function Active() {
           fill="currentColor"
         />
       </svg>
-      <MusicPlayer ref={musicRef} />
+      <MusicPlayer ref={musicRef} visible={entered} />
     </main>
   );
 }
