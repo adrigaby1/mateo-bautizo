@@ -74,17 +74,22 @@ function Disabled() {
 }
 
 function Active() {
+  const [entered, setEntered] = useState(false);
   const [photos, setPhotos] = useState<Asset[]>([]);
   const [videos, setVideos] = useState<Asset[]>([]);
   const [loading, setLoading] = useState(true);
   const musicRef = useRef<MusicPlayerHandle>(null);
 
   useEffect(() => {
-    const t = setTimeout(() => {
-      musicRef.current?.tryPlay();
-    }, 600);
-    return () => clearTimeout(t);
-  }, []);
+    if (!entered) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [entered]);
 
   useEffect(() => {
     let cancelled = false;
@@ -100,6 +105,11 @@ function Active() {
     })();
     return () => { cancelled = true; };
   }, []);
+
+  const handleEnter = () => {
+    setEntered(true);
+    musicRef.current?.tryPlay();
+  };
 
   return (
     <main className="relative min-h-screen bg-sky-magic overflow-x-hidden">
