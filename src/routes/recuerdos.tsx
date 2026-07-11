@@ -271,6 +271,78 @@ function Active() {
   );
 }
 
+function RecuerdosWelcome({
+  onEnter,
+  entered,
+}: {
+  onEnter: () => void;
+  entered: boolean;
+}) {
+  return (
+    <div
+      className={`fixed inset-0 z-50 flex flex-col items-center justify-center px-6 bg-sky-magic overflow-y-auto transition-opacity duration-700 ${
+        entered ? "opacity-0 pointer-events-none" : "opacity-100"
+      }`}
+    >
+      <FloatingDecor />
+      <div className="relative z-10 flex flex-col items-center text-center max-w-xl w-full gap-4 sm:gap-5">
+        {/* Avatar with warm halo — same premium treatment as invitation Hero */}
+        <div className="relative flex items-center justify-center mb-1 sm:mb-2">
+          <div
+            aria-hidden
+            className="absolute w-[24rem] h-[24rem] sm:w-[32rem] sm:h-[32rem] rounded-full opacity-80 blur-3xl pointer-events-none animate-halo-pulse"
+            style={{
+              background:
+                "radial-gradient(circle at 50% 45%, oklch(0.95 0.04 80 / 0.85) 0%, oklch(0.92 0.035 230 / 0.55) 40%, transparent 72%)",
+            }}
+          />
+          <div
+            aria-hidden
+            className="absolute w-[20rem] h-[20rem] sm:w-[28rem] sm:h-[28rem] rounded-full bg-gold-soft opacity-30 blur-[100px] pointer-events-none"
+          />
+          <img
+            src={mateoAvatar.url}
+            alt="Avatar de Mateo"
+            className="relative object-contain rounded-full animate-soft-float"
+            style={{
+              width: "clamp(150px, 38vw, 220px)",
+              height: "clamp(150px, 38vw, 220px)",
+              WebkitMaskImage:
+                "radial-gradient(circle at 50% 50%, #000 58%, rgba(0,0,0,0.85) 66%, rgba(0,0,0,0) 78%)",
+              maskImage:
+                "radial-gradient(circle at 50% 50%, #000 58%, rgba(0,0,0,0.85) 66%, rgba(0,0,0,0) 78%)",
+              filter:
+                "drop-shadow(0 24px 36px rgba(45,86,113,0.18)) drop-shadow(0 6px 12px rgba(221,190,135,0.28))",
+            }}
+          />
+        </div>
+
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/70 border border-gold-soft/40 text-[10px] font-display tracking-[0.25em] uppercase text-foreground/60 reveal-up">
+          <span>🌊</span> Álbum familiar <span>✨</span>
+        </div>
+
+        <h1 className="font-display text-3xl sm:text-5xl font-semibold text-sea-muted leading-tight reveal-up delay-1">
+          Recuerdos del día especial de Mateo
+        </h1>
+
+        <p className="text-foreground/70 max-w-md text-sm sm:text-base leading-relaxed reveal-up delay-2">
+          Toca el botón para entrar al álbum y revivir juntos los momentos más bonitos 🤍
+        </p>
+
+        <button
+          onClick={onEnter}
+          className="group relative px-8 sm:px-10 py-4 sm:py-5 bg-gradient-sea text-white text-sm sm:text-base font-display font-semibold tracking-wide rounded-full shadow-soft hover:shadow-glow hover:scale-[1.03] active:scale-95 transition-all duration-500 reveal-up delay-3"
+        >
+          <span className="relative z-10 flex items-center gap-2">
+            Entrar al álbum 🎵
+          </span>
+          <div className="absolute inset-0 rounded-full bg-gradient-gold opacity-0 group-hover:opacity-30 blur-xl transition-opacity" />
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function Recuerdos() {
   return RECUERDOS_ENABLED ? <Active /> : <Disabled />;
 }
