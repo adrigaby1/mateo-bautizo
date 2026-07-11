@@ -80,6 +80,13 @@ function Active() {
   const musicRef = useRef<MusicPlayerHandle>(null);
 
   useEffect(() => {
+    const t = setTimeout(() => {
+      musicRef.current?.tryPlay();
+    }, 600);
+    return () => clearTimeout(t);
+  }, []);
+
+  useEffect(() => {
     let cancelled = false;
     (async () => {
       const [p, v] = await Promise.all([
